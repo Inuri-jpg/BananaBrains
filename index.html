@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banana Brains</title>
+    <link href="https://fonts.googleapis.com/css2?family=Boogaloo&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/globals.css">
+
+    <link rel="stylesheet" href="js/screens/loading/loading.css">
+    <link rel="stylesheet" href="js/screens/home/home.css">
+    <link rel="stylesheet" href="js/screens/setup/setup.css">
+    </head>
+    <body>
+
+<div id="loadingScreen" class="screen active">
+    <div class="stars-layer" id="starsLayer"></div>
+
+    <div class="loading-card">
+        <div class="loading-banana">🍌</div>
+
+        <h1 class="loading-title">
+            <span class="word-banana">BANANA</span>
+            <span class="word-brain">BRAINS</span>
+        </h1>
+        <p class="loading-subtitle">Math Adventure</p>
+
+        <div class="progress-track">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <p class="progress-label" id="progressLabel">Initializing......</p>
+
+        <div class="api-badge">
+            <div class="api-dot"></div>
+            🌐 Connecting to Banana API + Emoji API
+        </div>
+    </div>
+</div>
+
+<script src="js/StorageManager.js"></script>
+<script src="js/GameModel.js"></script>
+<script src="js/GameView.js"></script>
+<script src="js/GameController.js"></script>
+
+<script src="js/screens/loading/loading.js"></script>
+<script src="js/screens/home/home.js"></script>
+<script src="js/screens/setup/setup.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', async function() {
+    console.log('Banana Brain : DOMContentLoaded event fired!');
+    console.log('Starting Game......');
+
+    const storage = new StorageManager();
+    const model = new GameModel(storage);
+    const view = new GameView();
+    const controller = new GameController(mode, view, storage);
+
+    controller.registerEvents();
+
+    window.LoadingScreen.buildStars();
+    window.LoadingScreen.buildParticles();
+
+    await window.LoadingScreen.runLoading(view);
+
+    const returningUser = model.loadUser();
+    if(returningUser) {
+        console.log('Returning user detected: ', returningUser.username);
+        window.HomeScreen.showReturningUser(view, returningUser);
+    }
+
+    view.show('home');
+
+    console.log('Game Ready!');
+    }); 
+</script>
+    </body>
+</html>

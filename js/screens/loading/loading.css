@@ -1,0 +1,126 @@
+#loadingScreen {
+    background: radial-gradient(ellipse at top, #1a0a3e 0%, #0d0b1e 60%);
+}
+
+/* Starfield Background */
+.stars-layer {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.star-dot {
+    position: absolute;
+    border-radius: 50%;
+    background: white;
+    animation: starTwinkle linear infinte;
+}
+
+@keyframes starTwinkle {
+    0%, 100% { opacity: 0.1; transform: scale(1); }
+    50%       { opacity: 1;   transform: scale(1.4); }
+}
+
+/* The card on loading screen */
+.loading-card {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Big bouncing banana emoji */
+.loading-banana{
+    font-size: 7em;
+    animation: bigBounce 1.2s ease-in-out infinite;
+    margin-bottom: 15px;
+    filter: drop-shadow(0 20px 30px rgba(255,217,61,0.4));
+
+}
+
+@keyframes bigBounce {
+    0%, 100% { transform: translateY(0)    scale(1);    }
+    40%      { transform: translateY(-30px) scale(1.08); }
+    60%      { transform: translateY(-25px) scale(1.05); }
+}
+
+.loading-title {
+    font-family: 'Boogaloo', sans-serif;
+    font-size: 4.5em;
+    line-height: 0.88;
+    margin-bottom: 8px;
+}
+
+.loading-title .word-banana {
+    display: block;
+    background: linear-gradient(135deg, #FFD93D 0%, #FF6B35 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.loading-title .word-brain {
+    display: block;
+    color: white;
+}
+
+.loading-subtitle {
+    color: rgba(255,255,255,0.35);
+    font-size: 1em;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+}
+
+.progress-track {
+    width: 260px;
+    height: 8px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 99px;
+    overflow: hidden;
+    margin-bottom: 14px;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--yellow), var(--orange));
+    border-radius: 99px;
+    transition: width 0.4s ease;
+}
+
+.progress-label {
+    font-size: 0.8em;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.5px;
+}
+
+.api-badge {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    background: rgba(108,99,255,0.15);
+    border: 1px solid rgba(108,99,255,0.35);
+    border-radius: 99px;
+    font-size: 0.8em;
+    color: rgba(255,255,255,0.5);
+}
+
+.api-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--purple);
+    animation: blink 1.5s ease-in-out infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.2; }
+}

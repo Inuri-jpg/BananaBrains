@@ -1,0 +1,79 @@
+:root {
+    --yellow:  #FFD93D;
+    --orange:  #FF6B35;
+    --purple:  #6C63FF;
+    --pink:    #FF6B9D;
+    --green:   #4CAF50;
+    --dark:    #0d0b1e;
+    --card-bg: rgba(255,255,255,0.06);
+    --border:  rgba(255,255,255,0.10);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--dark);
+    color: white;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.screen {
+    position: fixed;
+    inset: 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+}
+
+.screen.active {
+    display: flex;
+}
+
+.concept-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 10px;
+    border-radius: 99px;
+    font-size: 0.65;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    margin: 2px;
+}
+
+.tag-vi  { background: rgba(255,107,157,0.2); color: #FF6B9D; border: 1px solid rgba(255,107,157,0.3); }
+.tag-ed  { background: rgba(255,107,53,0.2);  color: #FF9A6B; border: 1px solid rgba(255,107,53,0.3); }
+.tag-io  { background: rgba(108,99,255,0.2);  color: #9B94FF; border: 1px solid rgba(108,99,255,0.3); }
+.tag-vc  { background: rgba(76,175,80,0.2);   color: #7BC97F; border: 1px solid rgba(76,175,80,0.3); }
+
+.concept-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 6px;
+}
+
+/*floating particles*/
+.particle {
+    position: fixed;
+    font-size: 1.8em;
+    opacity: 0.08;
+    animation: particleRise linear infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes particleRise {
+    from { transform: translateY(110vh) rotate(0deg);   opacity: 0; }
+    10%  { opacity: 0.08; }
+    90%  { opacity: 0.08; }
+    to   { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+}
