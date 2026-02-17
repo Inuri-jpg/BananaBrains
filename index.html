@@ -14,6 +14,7 @@
     </head>
     <body>
 
+        <!--Loading Screen-->
 <div id="loadingScreen" class="screen active">
     <div class="stars-layer" id="starsLayer"></div>
 
@@ -39,6 +40,64 @@
     </div>
 </div>
 
+  <!--Home Menu-->
+  <div id="homeScreen" class="screen">
+    <div class="clouds-container">
+        <div class="cloud cloud-a"></div>
+        <div class="cloud cloud-b"></div>
+        <div class="cloud cloud-c"></div>
+  </div>
+
+  <div class="trees">
+    <div class="tree">🌲</div>
+    <div class="tree">🌳</div>
+    <div class="tree">🌲</div>
+    <div class="tree">🌳</div>
+  </div>
+
+  <div class="ground-hill"></div>
+
+  <div class="home-panel">
+    <div class="identity-badge" id="returningBadge">
+        <div class="badge-avatar">🧠</div>
+        <div class="badge-text">
+        <div class="badge-name" id="returningName">Player</div>
+        <div class="badge-score">🏆 Best: <span id="returningScore">0</span> pts</div>    
+        </div>
+    </div>
+
+    <div class="game-logo">
+        <h1>BANANA BRAINS</h1>
+    </div>
+
+    <div class="home-character">🧠</div>
+    <div class="menu-buttons">
+        <button class="menu-btn btn-single" id="btn-single">
+            <span class="btn-emoji">🎮</span>
+            Single Player
+        </button> 
+
+        <button class="menu-btn btn-multi" id="btn-multi">
+            <span class="btn-emoji">👥</span>
+            Two Players
+        </button> 
+
+        <button class="menu-btn btn-leader" id="btn-leader">
+                <span class="btn-emoji">🏆</span>
+                Leaderboard
+            </button>
+
+            <button class="menu-btn btn-settings" id="btn-settings">
+                <span class="btn-emoji">⚙️</span>
+                Settings
+            </button>
+        </div>
+
+        <p class="version-tag">v1.0 · Banana Brain · 2025</p>
+    </div>
+    </div>
+    
+
 <script src="js/StorageManager.js"></script>
 <script src="js/GameModel.js"></script>
 <script src="js/GameView.js"></script>
@@ -56,25 +115,33 @@ document.addEventListener('DOMContentLoaded', async function() {
     const storage = new StorageManager();
     const model = new GameModel(storage);
     const view = new GameView();
-    const controller = new GameController(mode, view, storage);
+    const controller = new GameController(model, view, storage);
 
     controller.registerEvents();
 
-    window.LoadingScreen.buildStars();
-    window.LoadingScreen.buildParticles();
-
-    await window.LoadingScreen.runLoading(view);
+    window.loadingScreen.buildStars();
+    window.loadingScreen.buildParticles();
+    await window.loadingScreen.runLoading(view);
 
     const returningUser = model.loadUser();
     if(returningUser) {
         console.log('Returning user detected: ', returningUser.username);
-        window.HomeScreen.showReturningUser(view, returningUser);
+        view.showReturningUser(returningUser.username, returningUser.highScore);
     }
 
     view.show('home');
 
-    console.log('Game Ready!');
+    console.log('✅ Game ready!');
+    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    console.log('CONCEPTS ACTIVE:');
+    console.log('⚡ Event-Driven:    All buttons wired');
+    console.log('👤 Virtual Identity: localStorage ready');
+    console.log('🌐 Interoperability: Banana + Emoji APIs ready');
+    console.log('📁 Version Control:  Commit this file!');
+    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+
     }); 
+
 </script>
     </body>
 </html>
