@@ -1,0 +1,255 @@
+#setupScreen {
+    background: radial-gradient(ellipse at top, #1a0a3e 0%, #0d0b1e 70%);
+}
+
+.orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.25;
+    pointer-events: none;
+    z-index: 0;
+    animation: orbPulse 8s ease-in-out infinite;
+}
+
+.orb-1 { width: 300px; height: 300px; background: #6C63FF; top: -100px; left: -100px; }
+.orb-2 { width: 250px; height: 250px; background: #FF6B9D; bottom: -80px; right: -80px; animation-delay: -4s; }
+
+@keyframes orbPulse {
+    0%, 100% {transform: scale(1); }
+    50% {transform: scale(1.15); }
+}
+
+.setup-card {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 420px;
+    padding: 30px 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+}
+
+.back-btn {
+    align-self: flex-start;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 99px;
+    padding: 8px 18px;
+    color: rgba(255,255,255,0.7);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 20px;
+}
+
+.back-btn:hover {
+    background: rgba(255,255,255,0.15);
+    color: white;
+}
+
+/* Animated character on setup screen */
+.setup-character {
+    font-size: 4.5em;
+    animation: setupFloat 3s ease-in-out infinite;
+    margin-bottom: 12px;
+}
+
+@keyframes setupFloat {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-12px); }
+}
+
+.setup-title {
+    font-family: 'Boogaloo', sans-serif;
+    font-size: 2.2em;
+    color: var(--yellow);
+    margin-bottom: 4px;
+    text-align: center;
+}
+
+.setup-subtitle {
+    color: rgba(255,255,255,0.38);
+    font-size: 0.88em;
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.field-block {
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+.field-label {
+    display: block;
+    font-size: 0.7em;
+    font-weight: 900;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.38);
+    margin-bottom: 7px;
+}
+
+.field-input {
+    width: 100%;
+    background: rgba(255,255,255,0.07);
+    border: 2px solid rgba(255,255,255,0.12);
+    border-radius: 14px;
+    padding: 14px 18px;
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.05em;
+    font-weight: 700;
+    outline: none;
+    transition: border-color 0.25s, background 0.25s;
+}
+
+/* When user clicks the input */
+.field-input:focus {
+    border-color: var(--yellow);
+    background: rgba(255,217,61,0.07);
+}
+
+.field-input::placeholder {
+    color: rgba(255,255,255,0.2);
+    font-weight: 400;
+}
+
+.api-section {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.api-section.field-label {
+    margin-bottom: 10px;
+}
+
+.api-label-hint {
+    font-size: 0.68em;
+    color: rgba(108,99,255,0.7);
+    margin-bottom: 10px;
+    display: block;
+}
+
+.api-options {
+    display: flex;
+    gap: 10px;
+}
+
+.api-option {
+    flex: 1;
+    padding: 14px 10px;
+    border-radius: 14px;
+    border: 2px solid rgba(255,255,255,0.10);
+    background: rgba(255,255,255,0.04);
+    color: rgba(255,255,255,0.4);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.api-option:hover {
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.7);
+}
+
+.api-option.selected {
+    border-color: var(--yellow);
+    background: rgba(255,217,61,0.12);
+    color: var(--yellow);
+}
+
+.api-option-icon { font-size: 1.8em; }
+.api-option-name { font-size: 0.85em; }
+.api-option-url  { font-size: 0.62em; opacity: 0.5; font-family: monospace; }
+
+/* shows the sutogenerated IDd tot he user so that they cans ee their identity */
+.identity-reveal {
+    width: 100%;
+    background: rgba(255,217,61,0.06);
+    border: 1px solid rgba(255,217,61,0.20);
+    border-radius: 16px;
+    padding: 16px 18px;
+    margin-bottom: 22px;
+}
+
+.identity-reveal-title {
+    font-size: 0.68em;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.identity-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.identity-row:last-child {border-bottom: none;}
+
+.identity-key {
+    font-size: 0.68em;
+    font-weight:800;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.5px;
+}
+
+.identity-val {
+    font-size: 0.68em;
+    font-family: 'Courier New', Courier, monospace;
+    color: rgba(255,255,255,0.55);
+}
+
+.id-generating {
+    animation: idBlink 0.6s ease infinite;
+    color: var(--yellow) !important;
+}
+
+@keyframes idBlink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.3; }
+}
+
+.play-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--yellow) 0%, var(--orange) 100%);
+    border: none;
+    border-radius: 18px;
+    padding: 18px;
+    font-family: 'Boogaloo', sans-serif;
+    font-size: 1.5em;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 7px 0 rgba(0,0,0,0.3), 0 14px 30px rgba(255,107,53,0.4);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    letter-spacing: 0.5px;
+}
+
+.play-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 11px 0 rgba(0,0,0,0.3), 0 20px 40px rgba(255, 107, 53, 0.5);
+}
+
+.play-btn:active {
+    transform: translateY(4px);
+    box-shadow: 0 20 0 rgba(0,0,0,0.3);
+}

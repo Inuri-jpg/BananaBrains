@@ -93,10 +93,76 @@
             </button>
         </div>
 
-        <p class="version-tag">v1.0 · Banana Brain · 2025</p>
+        <p class="version-tag">v1.0 · Banana Brains · 2025</p>
     </div>
     </div>
-    
+
+     <!-- Setup Screen -->
+      <div id="setupScreen" class="screen">
+        <div class="orb orb-1"></div>
+        <div class="orb orb2"></div>
+
+        <div class="setup-card">
+            <button class="back-btn" id="btn-setup-back">Back</button>
+
+            <div class="setup-character">🧠</div>
+
+            <h2 class="setup-title">Create your identity</h2>
+            <p class="setup-subtitle">Your profile is saved automatically</p>
+
+            <div class="field-block">
+                <label class="field-label" for="nameInput">Your Username</label>
+                <input
+                type="text"
+                id="nameInput"
+                class="field-input"
+                placeholder="e.g. BananaKing...."
+                maxlength="20"
+                autocomplete="off">
+            </div>
+
+            <div class="api-section">
+                <label class="field-label">Pick your fav</label>
+
+                <div class="api-options">
+                    <button class="api-option selected" data-api="banana" id="apiOpt-banana">
+                        <span class="api-option-icon">🍌</span>
+                        <span class="api-option-name">Banana API</span>
+                    </button>
+
+                    <button class="api-option" data-api="emoji" id="apiOpt-emoji">
+                        <span class="api-option-icon">😊</span>
+                        <span class="api-option-name">Emoji API</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="identity-reveal">
+                <div class="identity-reveal-title">
+                    Your auto generated Identity
+                </div>
+
+                <div class="identity-row">
+                    <span class="identity-key">USER ID</span>
+                    <span class="identity-val id-generating" id="display-userId">Generating....</span>
+                </div>
+
+                <div class="identity-row">
+                    <span class="identity-key">SESSION</span>
+                    <span class="identity-val id-genrating" id="display-sessionId">Generating...</span>
+                </div>
+
+                <div class="identity-row">
+                    <span class="identity-key">CREATED</span>
+                    <span class="identity-val" id="display-created">-</span>
+                </div>
+            </div>
+
+        <button class="play-btn" id="btn-start-single">
+            🍌 Let's Play!
+        </button>
+    </div>
+</div>
 
 <script src="js/StorageManager.js"></script>
 <script src="js/GameModel.js"></script>

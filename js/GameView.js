@@ -25,4 +25,35 @@ class GameView {
         document.getElementById('returningBadge').classList.add('visible');
     }
 
+    showGeneratedIds(userId, sessionId){ 
+        const uEl = document.getElementById('display-userId');
+        const sEl = document.getElementById('display-sessionId');
+        const cEl = document.getElementById('display-created');
+
+        uEl.textContent = 'Generating....';
+        sEl.textContent = 'Genrating.....';
+        uEl.classList.add('id-generating');
+        sEl.classList.add('id-generating');
+
+        setTimeout(() => {
+            uEl.textContent = userId;
+            sEl.textContent = sessionId;
+            cEl.textContent = new Date().toLocaleDateString();
+            uEl.classList.remove('id-generating');
+            sEl.classList.remove('id-generating');
+        }, 600);
+    }
+
+    getTypedName() {
+        return document.getElementById('nameInput').value.trim();
+    }
+
+    getSelectedApi(){
+        const selected = document.querySelector('.api-option.selected');
+        return selected ? selected.dataset.api : 'banana';
+    }
+
+    alert(msg) {
+        window.alert(msg);
+    }
 }
