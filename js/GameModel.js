@@ -6,7 +6,7 @@ class GameModel {
 
         this.mode = null;
         this.totalRounds = 5;
-        this.currentRounds = 1;
+        this.currentRound = 1;
         this.whoseTurn = 1;
 
         this.player1 = null;

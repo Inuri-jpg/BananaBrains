@@ -4,6 +4,7 @@ class GameView {
             loading: document.getElementById('loadingScreen'),
             home: document.getElementById('homeScreen'),
             setup: document.getElementById('setupScreen'),
+            gameplay: document.getElementById('gameplayScreen')
         };
     }
 

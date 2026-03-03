@@ -11,11 +11,12 @@
     <link rel="stylesheet" href="js/screens/loading/loading.css">
     <link rel="stylesheet" href="js/screens/home/home.css">
     <link rel="stylesheet" href="js/screens/setup/setup.css">
+    <link rel="stylesheet" href="js/screens/gameplay/gameplay.css">
     </head>
     <body>
 
-        <!--Loading Screen-->
-<div id="loadingScreen" class="screen active">
+    <!--Loading Screen-->
+    <div id="loadingScreen" class="screen active">
     <div class="stars-layer" id="starsLayer"></div>
 
     <div class="loading-card">
@@ -97,7 +98,7 @@
     </div>
     </div>
 
-     <!-- Setup Screen -->
+     <!--Single Player Setup Screen -->
       <div id="setupScreen" class="screen">
         <div class="orb orb-1"></div>
         <div class="orb orb2"></div>
@@ -162,7 +163,93 @@
             🍌 Let's Play!
         </button>
     </div>
-</div>
+ </div>
+
+ <!--Gameplay screen-->
+<div class="screen" id="gameplayScreen">
+        <div class="game-container">
+            <!-- HUD (Heads-Up Display) - Shows game stats -->
+            <div class="game-hud">
+                <!-- Left side: Current player info -->
+                <div class="hud-left">
+                    <div class="player-info">
+                        <span class="player-name" id="currentPlayerName">BananaKing</span>
+                        <span class="api-indicator" id="apiIndicator">
+                            <span class="api-badge banana-api">🍌 Banana API</span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Center: Round counter -->
+                <div class="hud-center">
+                    <div class="round-display">
+                        Round <span id="currentRound">1</span> / <span id="totalRounds">5</span>
+                    </div>
+                </div>
+
+                <!-- Right side: Score and timer -->
+                <div class="hud-right">
+                    <div class="score-display">
+                        <span class="score-label">Score:</span>
+                        <span class="score-value" id="currentScore">0</span>
+                    </div>
+                    <div class="timer-display" id="timerDisplay">
+                        <span class="timer-icon">⏱️</span>
+                        <span class="timer-value" id="timerValue">30</span>s
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main puzzle area -->
+            <div class="puzzle-container">
+                <!-- Loading state (shown while fetching from API) -->
+                <div class="puzzle-loading" id="puzzleLoading">
+                    <div class="loading-spinner"></div>
+                    <p>🌐 Fetching puzzle from API...</p>
+                    <small>Demonstrating Interoperability</small>
+                </div>
+
+                <!-- Puzzle image (received from external API) -->
+                <div class="puzzle-image-wrapper" id="puzzleImageWrapper" style="display: none;">
+                    <img 
+                        src="" 
+                        alt="Math puzzle" 
+                        id="puzzleImage"
+                        class="puzzle-image"
+                    >
+                    <p class="puzzle-instruction">What number is missing? 🤔</p>
+                </div>
+            </div>
+
+            <!-- Answer input section -->
+            <div class="answer-section">
+                <input 
+                    type="number" 
+                    id="answerInput" 
+                    placeholder="Enter your answer"
+                    autocomplete="off"
+                    min="0"
+                    max="10"
+                    disabled
+                >
+                <button class="submit-btn" id="submitAnswerBtn" disabled>
+                    ✓ Submit Answer
+                </button>
+            </div>
+
+            <!-- Feedback message (correct/incorrect) -->
+            <div class="feedback-message" id="feedbackMessage">
+                <!-- Dynamically populated with feedback -->
+            </div>
+
+            <!-- Quit button -->
+            <button class="quit-btn" id="quitGameBtn">
+                🚪 Quit Game
+            </button>
+
+            <!-- Concept indicators -->
+        </div>
+    </div>
 
 <script src="js/StorageManager.js"></script>
 <script src="js/GameModel.js"></script>
@@ -172,6 +259,7 @@
 <script src="js/screens/loading/loading.js"></script>
 <script src="js/screens/home/home.js"></script>
 <script src="js/screens/setup/setup.js"></script>
+<script src="js/screens/gameplay/gameplay.js"></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', async function() {
