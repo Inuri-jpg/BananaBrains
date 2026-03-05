@@ -201,7 +201,8 @@
 
 .volume-slider {
     flex: 1;
-    -webkit-appearance: none;
+    appearance: none;          
+    -webkit-appearance: none; 
     height: 8px;
     border-radius: 5px;
     background: rgba(255, 255, 255, 0.1);
