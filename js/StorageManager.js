@@ -46,7 +46,7 @@ class StorageManager{
     loadSettings(){
         const saved = localStorage.getItem(this.KEYS.settings);
         if (saved) return JSON.parse(saved);
-        return {sound: true, timeSeconds:10}; 
+        return {sound: true, timerSeconds:10}; 
     }
 
     saveSettings(obj){

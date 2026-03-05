@@ -55,7 +55,7 @@
 
             //Load user data
             function loadUserData() {
-                console.log('👤 VIRTUAL IDENTITY: Loading user data from localStorage');
+                console.log('Loading user data from localStorage');
                 const userData = localStorage.getItem('bananaBrain_currentUser');
                 
                 if (userData) {
@@ -146,7 +146,6 @@
                         solution: data.solution
                     };
 
-                    console.log('=== PUZZLE DATA RECEIVED ===');
                     console.log(`Image URL: ${currentPuzzle.imageUrl}`);
                     console.log(`Solution: ${currentPuzzle.solution}`);
                   
@@ -209,35 +208,31 @@
 
                 // Move to next round after delay
                 setTimeout(() => {
-                    currentRound++;
-                    document.getElementById('currentRound').textContent = currentRound;
-
-                    if (currentRound <= totalRounds) {
-                        console.log(`Moving to round ${currentRound}`);
-                        loadNextPuzzle();
-                    } else {
-                        console.log('All rounds complete!');
-                        endGame();
-                    }
-                }, 2000);
+    if (currentRound === totalRounds) {
+        endGame();
+    } else {
+        currentRound++;
+        document.getElementById('currentRound').textContent = currentRound;
+        loadNextPuzzle();
+    }
+}, 2000);
             }
 
             // Time expired event handler
             function handleTimeExpired() {
-                console.log('⚡ EVENT: Time expired - moving to next round');
+                console.log('Time expired - moving to next round');
                 showFeedback(`⏰ Time's up! The answer was ${currentPuzzle.solution}`, 'error');
                 playSound('timeout');
 
                 setTimeout(() => {
-                    currentRound++;
-                    document.getElementById('currentRound').textContent = currentRound;
-
-                    if (currentRound <= totalRounds) {
-                        loadNextPuzzle();
-                    } else {
-                        endGame();
-                    }
-                }, 2000);
+    if (currentRound === totalRounds) {
+        endGame();
+    } else {
+        currentRound++;
+        document.getElementById('currentRound').textContent = currentRound;
+        loadNextPuzzle();
+    }
+}, 2000);
             }
 
             function showFeedback(message, type) {
@@ -300,7 +295,7 @@
 
             //Update user statistics
             function updateUserStats() {
-                console.log('👤 VIRTUAL IDENTITY: Updating user statistics');
+                console.log('Updating user statistics');
                 
                 const userData = localStorage.getItem('bananaBrain_currentUser');
                 if (userData) {

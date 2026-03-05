@@ -19,8 +19,8 @@ body {
     font-family: 'Nunito', sans-serif;
     background: var(--dark);
     color: white;
-    height: 100vh;
     overflow: hidden;
+    height: 100vh;
 }
 
 .screen {

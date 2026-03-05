@@ -4,11 +4,12 @@ class GameView {
             loading: document.getElementById('loadingScreen'),
             home: document.getElementById('homeScreen'),
             setup: document.getElementById('setupScreen'),
-            gameplay: document.getElementById('gameplayScreen')
+            gameplay: document.getElementById('gameplayScreen'),
+            results: document.getElementById('resultsScreen')
         };
     }
 
-    /* ── Switch which screen is visible ── */
+    // Switch which screen is visible 
     show(screenName) {
         Object.values(this.screens).forEach(s => { if (s) s.classList.remove('active'); });
         this.screens[screenName].classList.add('active');

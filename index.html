@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="js/screens/home/home.css">
     <link rel="stylesheet" href="js/screens/setup/setup.css">
     <link rel="stylesheet" href="js/screens/gameplay/gameplay.css">
+    <link rel="stylesheet" href="js/screens/results/results.css">
     </head>
     <body>
 
@@ -101,7 +102,7 @@
      <!--Single Player Setup Screen -->
       <div id="setupScreen" class="screen">
         <div class="orb orb-1"></div>
-        <div class="orb orb2"></div>
+        <div class="orb orb-2"></div>
 
         <div class="setup-card">
             <button class="back-btn" id="btn-setup-back">Back</button>
@@ -150,7 +151,7 @@
 
                 <div class="identity-row">
                     <span class="identity-key">SESSION</span>
-                    <span class="identity-val id-genrating" id="display-sessionId">Generating...</span>
+                    <span class="identity-val id-generating" id="display-sessionId">Generating...</span>
                 </div>
 
                 <div class="identity-row">
@@ -251,6 +252,96 @@
         </div>
     </div>
 
+  <!-- Results Screen -->  
+    <div class="screen" id="resultsScreen">
+        <div class="results-container">
+            <!-- Animated trophy -->
+            <div class="trophy-container">
+                <div class="trophy-icon" id="trophyIcon">🏆</div>
+            </div>
+
+            <!-- Confetti animation -->
+            <div class="confetti-container" id="confettiContainer">
+            </div>
+
+            <!-- Winner announcement -->
+            <div class="winner-announcement" id="winnerAnnouncement">
+                <h1 class="winner-title">🎉 Congratulations! 🎉</h1>
+                <p class="winner-name" id="winnerName">BananaKing</p>
+                <p class="winner-subtitle">You are the Banana Brain Champion!</p>
+            </div>
+
+            <!-- Single Player Results -->
+            <div class="single-player-results" id="singlePlayerResults">
+                <div class="result-card">
+                    <div class="result-header">
+                        <h2>📊 Your Performance</h2>
+                    </div>
+                    
+                    <div class="result-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Final Score:</span>
+                            <span class="stat-value" id="finalScore">4 / 5</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Accuracy:</span>
+                            <span class="stat-value" id="accuracy">80%</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">API Used:</span>
+                            <span class="stat-value" id="apiUsed">🍌 Banana API</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">User ID:</span>
+                            <span class="stat-value small-text" id="resultUserId">USER-1234567890-abc</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Session ID:</span>
+                            <span class="stat-value small-text" id="resultSessionId">SESSION-1234567890-xyz</span>
+                        </div>
+                    </div>
+
+                     <!-- Achievement badges -->
+                    <div class="achievements" id="achievementContainer">
+                    </div>
+                </div>
+            </div> 
+
+            <!-- Leaderboard position notification -->
+            <div class="leaderboard-notification" id="leaderboardNotification">
+                <p>🎖️ You've been added to the leaderboard!</p>
+                <p class="sub-text">Your score has been saved. </p>
+            </div>
+
+            <!-- Action buttons -->
+            <div class="result-actions">
+                <button class="menu-btn primary-btn" id="playAgainBtn">
+                    🔄 Play Again
+                </button>
+                <button class="menu-btn secondary-btn" id="viewLeaderboardBtn">
+                    🏆 View Leaderboard
+                </button>
+                <button class="menu-btn" id="backToHomeBtn">
+                    🏠 Back to Home
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaderboard Popup Overlay -->
+<div id="leaderboardOverlay" class="overlay" style="display: none;">
+    <div class="leaderboard-popup">
+        <button class="close-btn" id="closeLeaderboard">✕</button>
+        
+        <h2 class="leaderboard-title">🏆 Leaderboard 🏆</h2>
+        <p class="leaderboard-subtitle">Top Banana Brain Champions</p>
+
+        <div class="leaderboard-list" id="leaderboardList">
+        </div>
+    </div>
+</div>
+
+
 <script src="js/StorageManager.js"></script>
 <script src="js/GameModel.js"></script>
 <script src="js/GameView.js"></script>
@@ -259,7 +350,6 @@
 <script src="js/screens/loading/loading.js"></script>
 <script src="js/screens/home/home.js"></script>
 <script src="js/screens/setup/setup.js"></script>
-<script src="js/screens/gameplay/gameplay.js"></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', async function() {
@@ -270,6 +360,8 @@ document.addEventListener('DOMContentLoaded', async function() {
     const model = new GameModel(storage);
     const view = new GameView();
     const controller = new GameController(model, view, storage);
+
+    window.controller = controller; 
 
     controller.registerEvents();
 

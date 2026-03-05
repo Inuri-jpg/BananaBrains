@@ -15,7 +15,7 @@ class GameModel {
         this.puzzle = null;
 
         this.timerSeconds = 10;
-        this.timeleft = 10;
+        this.timeLeft = 10;
         this.timerRef = null;
 
         this.API = {
@@ -60,14 +60,14 @@ class GameModel {
         this.storage.saveUser(this.user);
     }
 
-    /**Game setup methods */
+    // Game setup methods
 
     setupSingle(username, apiChoice) {
         this.mode = 'single';
         this.currentRound = 1;
         this.timerSeconds = this.storage.loadSettings().timerSeconds;
 
-         /* Create or reuse identity */
+         // Create or reuse identity 
          if (this.user && this.user.username === username){
             this.user.sessionId = this.storage.makeSessionId();
          } else {
@@ -103,7 +103,7 @@ class GameModel {
         };
     }
 
-      /**fetching the puzzle from the API */
+      // fetching the puzzle from the API 
       async fetchPuzzle(){
         const activePlayer = this.getActivePlayer();
         const apiUrl = this.API[activePlayer.api];
@@ -128,8 +128,8 @@ class GameModel {
         }
       }
 
-        /**Game logic */
-        /* Returns whichever player is currently active */
+        //Game logic 
+        // Returns whichever player is currently active 
         getActivePlayer() {
         if (this.mode === 'single') return this.player1;
         return this.whoseTurn === 1 ? this.player1 : this.player2;
@@ -137,13 +137,21 @@ class GameModel {
 
         /* Check if answer is correct — returns true/false */
         checkAnswer(userAnswer) {
-        if (!this.puzzle) return false;
-        const correct = parseInt(userAnswer) === parseInt(this.puzzle.solution);
-        if (correct) {
-            this.getActivePlayer().score += 1;
-        }
-        return correct;
+    if (!this.puzzle) return false;
+
+    const userNum = Number(userAnswer);
+    const solutionNum = Number(this.puzzle.solution);
+
+    if (Number.isNaN(userNum) || Number.isNaN(solutionNum)) return false;
+
+    const correct = userNum === solutionNum;
+
+    if (correct) {
+        this.getActivePlayer().score += 1;
     }
+
+    return correct;
+}
 
         /* Move game forward after each answer */
         advance() {
@@ -169,6 +177,7 @@ class GameModel {
         if (this.mode === 'single') return this.player1.id;
         if (this.player1.score > this.player2.score) return this.player1;
         if (this.player2.score > this.player1.score) return this.player2;
+        return null;
      }
 
      saveResults(){
