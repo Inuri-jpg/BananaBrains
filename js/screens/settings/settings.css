@@ -1,0 +1,333 @@
+#settingsScreen {
+    background: radial-gradient(ellipse at top, #1a0a3e 0%, #0d0b1e 70%);
+}
+
+/* Settings container */
+.settings-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 600px;
+    padding: 30px 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+}
+
+.settings-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.settings-icon {
+    font-size: 4em;
+    animation: settingsRotate 3s ease-in-out infinite;
+    margin-bottom: 15px;
+}
+
+@keyframes settingsRotate {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(15deg); }
+}
+
+.settings-title {
+    font-family: 'Boogaloo', sans-serif;
+    font-size: 2.5em;
+    color: var(--yellow);
+    margin-bottom: 8px;
+}
+
+.settings-subtitle {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.9em;
+}
+
+/* Settings panel */
+.settings-panel {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 20px;
+}
+
+/* Individual setting item */
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.setting-item:last-child {
+    border-bottom: none;
+}
+
+.setting-info {
+    flex: 1;
+}
+
+.setting-label {
+    font-size: 1.1em;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.setting-label-icon {
+    font-size: 1.3em;
+}
+
+.setting-description {
+    font-size: 0.85em;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.setting-control {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Toggle switch */
+.toggle-switch {
+    position: relative;
+    width: 60px;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.toggle-switch.active {
+    background: var(--green);
+    border-color: var(--green);
+}
+
+.toggle-switch-handle {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 22px;
+    height: 22px;
+    background: white;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.toggle-switch.active .toggle-switch-handle {
+    left: 32px;
+}
+
+/* Difficulty selector */
+.difficulty-selector {
+    display: flex;
+    gap: 8px;
+}
+
+.difficulty-btn {
+    padding: 8px 16px;
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.5);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.difficulty-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.difficulty-btn.selected {
+    border-color: var(--yellow);
+    background: rgba(255, 217, 61, 0.15);
+    color: var(--yellow);
+}
+
+/* Timer selector */
+.timer-selector {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.timer-btn {
+    width: 35px;
+    height: 35px;
+    border-radius: 8px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.timer-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+}
+
+.timer-value {
+    font-size: 1.3em;
+    font-weight: 700;
+    color: var(--yellow);
+    min-width: 50px;
+    text-align: center;
+}
+
+/* Volume slider */
+.volume-slider-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 200px;
+}
+
+.volume-slider {
+    flex: 1;
+    -webkit-appearance: none;
+    height: 8px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    outline: none;
+}
+
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--yellow);
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.volume-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--yellow);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.volume-value {
+    font-size: 1em;
+    font-weight: 700;
+    color: var(--yellow);
+    min-width: 45px;
+}
+
+/* Action buttons */
+.settings-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.settings-btn {
+    width: 100%;
+    padding: 15px;
+    border-radius: 15px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.1em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.btn-save {
+    background: linear-gradient(135deg, var(--green), #45a049);
+    color: white;
+    box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+}
+
+.btn-save:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(76, 175, 80, 0.6);
+}
+
+.btn-reset {
+    background: rgba(244, 67, 54, 0.2);
+    border: 2px solid rgba(244, 67, 54, 0.5);
+    color: white;
+}
+
+.btn-reset:hover {
+    background: rgba(244, 67, 54, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Success message */
+.settings-message {
+    width: 100%;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: 15px;
+    display: none;
+    animation: slideIn 0.3s ease;
+}
+
+.settings-message.success {
+    background: rgba(76, 175, 80, 0.2);
+    border: 2px solid var(--green);
+    color: var(--green);
+}
+
+.settings-message.show {
+    display: block;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .settings-container {
+        padding: 20px 15px;
+    }
+
+    .setting-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .setting-control {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .volume-slider-container {
+        width: 100%;
+    }
+}

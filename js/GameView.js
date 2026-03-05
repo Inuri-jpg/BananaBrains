@@ -9,7 +9,9 @@ class GameView {
             multiplayer: document.getElementById('multiplayerSetupScreen'),
             
             results: document.getElementById('resultsScreen'),
-            leaderboard: document.getElementById('leaderboardScreen')
+            leaderboard: document.getElementById('leaderboardScreen'),
+
+            settings: document.getElementById('settingsScreen')
         };
     }
 

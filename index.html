@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="js/screens/gameplay/gameplay.css">
     <link rel="stylesheet" href="js/screens/results/results.css">
     <link rel="stylesheet" href="js/screens/leaderboard/leaderboard.css">
+    <link rel="stylesheet" href="js/screens/settings/settings.css">
     </head>
     <body>
 
@@ -181,6 +182,7 @@
         <p class="setup-subtitle">Create profiles for both players</p>
 
         <div class="players-container">
+
             <!-- Player 1 Card -->
             <div class="player-setup-card">
                 <h3 class="player-card-title">🎮 Player 1</h3>
@@ -340,7 +342,6 @@
 
             <!-- Feedback message (correct/incorrect) -->
             <div class="feedback-message" id="feedbackMessage">
-                <!-- Dynamically populated with feedback -->
             </div>
 
             <!-- Quit button -->
@@ -457,6 +458,117 @@
     </div>
 </div>
 
+<!-- Settings Screen -->
+<div id="settingsScreen" class="screen">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="settings-container">
+        <button class="back-btn" id="btn-settings-back">← Back</button>
+
+        <div class="settings-header">
+            <div class="settings-icon">⚙️</div>
+            <h2 class="settings-title">Settings</h2>
+            <p class="settings-subtitle">Customize your game experience</p>
+        </div>
+
+        <!-- Success message -->
+        <div class="settings-message success" id="settingsMessage">
+            ✓ Settings saved successfully!
+        </div>
+
+        <!-- Settings Panel -->
+        <div class="settings-panel">
+            
+            <!-- Sound Toggle -->
+            <div class="setting-item">
+                <div class="setting-info">
+                    <div class="setting-label">
+                        <span class="setting-label-icon">🔊</span>
+                        Sound Effects
+                    </div>
+                    <div class="setting-description">Enable or disable game sounds</div>
+                </div>
+                <div class="setting-control">
+                    <div class="toggle-switch active" id="soundToggle">
+                        <div class="toggle-switch-handle"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Volume Control -->
+            <div class="setting-item">
+                <div class="setting-info">
+                    <div class="setting-label">
+                        <span class="setting-label-icon">🎵</span>
+                        Volume
+                    </div>
+                    <div class="setting-description">Adjust sound volume</div>
+                </div>
+                <div class="setting-control">
+                    <div class="volume-slider-container">
+                        <input type="range" min="0" max="100" value="70" 
+                               class="volume-slider" id="volumeSlider">
+                        <span class="volume-value" id="volumeValue">70%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Difficulty Level -->
+            <div class="setting-item">
+                <div class="setting-info">
+                    <div class="setting-label">
+                        <span class="setting-label-icon">🎯</span>
+                        Difficulty
+                    </div>
+                    <div class="setting-description">Choose puzzle difficulty</div>
+                </div>
+                <div class="setting-control">
+                    <div class="difficulty-selector">
+                        <button class="difficulty-btn" data-difficulty="easy">Easy</button>
+                        <button class="difficulty-btn selected" data-difficulty="medium">Medium</button>
+                        <button class="difficulty-btn" data-difficulty="hard">Hard</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timer Duration -->
+            <div class="setting-item">
+                <div class="setting-info">
+                    <div class="setting-label">
+                        <span class="setting-label-icon">⏱️</span>
+                        Timer
+                    </div>
+                    <div class="setting-description">Time limit per question</div>
+                </div>
+                <div class="setting-control">
+                    <div class="timer-selector">
+                        <button class="timer-btn" id="timerMinus">−</button>
+                        <span class="timer-value" id="timerValue">30s</span>
+                        <button class="timer-btn" id="timerPlus">+</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="settings-actions">
+            <button class="settings-btn btn-save" id="saveSettingsBtn">
+                💾 Save Settings
+            </button>
+            <button class="settings-btn btn-reset" id="resetSettingsBtn">
+                🔄 Reset to Default
+            </button>
+        </div>
+
+        <div class="concept-strip" style="justify-content: center; margin-top: 20px;">
+            <span class="concept-tag tag-vi">👤 Virtual Identity: Saved to localStorage</span>
+            <span class="concept-tag tag-ed">⚡ Event-Driven: Interactive Controls</span>
+        </div>
+    </div>
+</div>
+
 <script src="js/StorageManager.js"></script>
 <script src="js/GameModel.js"></script>
 <script src="js/GameView.js"></script>
@@ -467,6 +579,7 @@
 <script src="js/screens/setup/setup.js"></script>
 <script src="js/screens/multiplayer/multiplayer.js"></script>
 <script src="js/screens/leaderboard/leaderboard.js"></script>
+<script src="js/screens/settings/settings.js"></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', async function() {
@@ -497,6 +610,8 @@ document.addEventListener('DOMContentLoaded', async function() {
     view.show('home');
 
     window.leaderboardScreen.init(storage, view);
+
+    window.settingsScreen.init(); 
 
     console.log('✅ Game ready!');
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');

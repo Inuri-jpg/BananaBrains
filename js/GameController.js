@@ -30,7 +30,7 @@ document.getElementById('btn-start-multi')
          });
 
         document.getElementById('btn-settings')
-            .addEventListener('click', () => this.view.alert('Settings'));
+    .addEventListener('click', () => this.view.show('settings'));
 
         // Setup screen
         document.getElementById('btn-setup-back')
@@ -334,8 +334,6 @@ if (this.model.mode === 'multi') {
 } else {
     this.loadNextPuzzle();
 }
-
-
         // THEN check if game is over
         if (this.model.isOver()) {
             this.stopTimer();
@@ -468,9 +466,6 @@ listEl.innerHTML = '';
             listEl.appendChild(entryDiv);
         });
     }
-
-    
-    
     document.getElementById('leaderboardOverlay').style.display = 'flex';
 }
 
