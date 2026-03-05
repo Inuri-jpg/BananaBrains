@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="js/screens/setup/setup.css">
     <link rel="stylesheet" href="js/screens/gameplay/gameplay.css">
     <link rel="stylesheet" href="js/screens/results/results.css">
+    <link rel="stylesheet" href="js/screens/leaderboard/leaderboard.css">
     </head>
     <body>
 
@@ -342,6 +343,26 @@
 </div>
 
 
+ <!-- Leaderboard -->
+<div class="screen" id="leaderboardScreen">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="leaderboard-screen-card">
+        <button class="leaderboard-screen-back" id="btn-leaderboard-back">← Back</button>
+
+        <div class="leaderboard-screen-trophy">🏆</div>
+        <h1 class="leaderboard-screen-title">🏆 Leaderboard</h1>
+        <p class="leaderboard-screen-subtitle">Top Banana Brain Champions</p>
+
+        <div class="leaderboard-screen-list" id="leaderboardScreenList">
+            <!-- Dynamically populated by leaderboard.js -->
+        </div>
+    </div>
+</div>
+
+
+
 <script src="js/StorageManager.js"></script>
 <script src="js/GameModel.js"></script>
 <script src="js/GameView.js"></script>
@@ -350,6 +371,7 @@
 <script src="js/screens/loading/loading.js"></script>
 <script src="js/screens/home/home.js"></script>
 <script src="js/screens/setup/setup.js"></script>
+<script src="js/screens/leaderboard/leaderboard.js"></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', async function() {
@@ -369,6 +391,8 @@ document.addEventListener('DOMContentLoaded', async function() {
     window.loadingScreen.buildParticles();
     await window.loadingScreen.runLoading(view);
 
+    
+
     const returningUser = model.loadUser();
     if(returningUser) {
         console.log('Returning user detected: ', returningUser.username);
@@ -376,6 +400,8 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     view.show('home');
+
+    window.leaderboardScreen.init(storage, view);
 
     console.log('✅ Game ready!');
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');

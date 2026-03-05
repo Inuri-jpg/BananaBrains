@@ -5,7 +5,8 @@ class GameView {
             home: document.getElementById('homeScreen'),
             setup: document.getElementById('setupScreen'),
             gameplay: document.getElementById('gameplayScreen'),
-            results: document.getElementById('resultsScreen')
+            results: document.getElementById('resultsScreen'),
+            leaderboard: document.getElementById('leaderboardScreen')
         };
     }
 

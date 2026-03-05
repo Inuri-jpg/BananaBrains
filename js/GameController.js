@@ -18,7 +18,9 @@ class GameController {
             .addEventListener('click', () => this.view.alert('Two Player Mode'));
 
         document.getElementById('btn-leader')
-            .addEventListener('click', () => this.view.alert('Leaderboard'));
+    .addEventListener('click', () => {
+        window.leaderboardScreen.show('home');
+         });
 
         document.getElementById('btn-settings')
             .addEventListener('click', () => this.view.alert('Settings'));
@@ -53,9 +55,14 @@ class GameController {
         });
 
         document.getElementById('viewLeaderboardBtn')
-        .addEventListener('click', () => {
-            this.showLeaderboard();
-        });
+    .addEventListener('click', () => {
+        window.leaderboardScreen.show('results');
+    });
+
+    document.getElementById('btn-leaderboard-back')
+    .addEventListener('click', () => {
+        window.leaderboardScreen.goBack();
+    });
 
         document.getElementById('backToHomeBtn')
         .addEventListener('click', () => {
