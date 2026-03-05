@@ -5,6 +5,9 @@ class GameView {
             home: document.getElementById('homeScreen'),
             setup: document.getElementById('setupScreen'),
             gameplay: document.getElementById('gameplayScreen'),
+
+            multiplayer: document.getElementById('multiplayerSetupScreen'),
+            
             results: document.getElementById('resultsScreen'),
             leaderboard: document.getElementById('leaderboardScreen')
         };

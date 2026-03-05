@@ -15,7 +15,14 @@ class GameController {
             .addEventListener('click', () => this.onSinglePlayerClick());
 
         document.getElementById('btn-multi')
-            .addEventListener('click', () => this.view.alert('Two Player Mode'));
+    .addEventListener('click', () => this.onMultiPlayerClick());
+
+    
+document.getElementById('btn-multi-back')
+    .addEventListener('click', () => this.view.show('home'));
+
+document.getElementById('btn-start-multi')
+    .addEventListener('click', () => this.onStartMultiClick());
 
         document.getElementById('btn-leader')
     .addEventListener('click', () => {
@@ -114,25 +121,52 @@ class GameController {
         this.startGameplay();
     }
 
-    async startGameplay() {
-        const player = this.model.getActivePlayer();
+   async startGameplay() {
+    const player = this.model.getActivePlayer();
 
-        document.getElementById('currentPlayerName').textContent = player.name;
-        document.getElementById('currentRound').textContent = this.model.currentRound;
-        document.getElementById('totalRounds').textContent = this.model.totalRounds;
-        document.getElementById('currentScore').textContent = player.score;
+    // Update HUD
+    document.getElementById('currentPlayerName').textContent = player.name;
+    document.getElementById('currentRound').textContent = this.model.currentRound;
+    document.getElementById('totalRounds').textContent = this.model.totalRounds;
+    document.getElementById('currentScore').textContent = player.score;
 
-        const apiBadge = document.querySelector('#gameplayScreen .api-badge');
-        if (player.api === 'banana') {
-            apiBadge.textContent = '🍌 Banana API';
-            apiBadge.className = 'api-badge banana-api';
-        } else {
-            apiBadge.textContent = '😊 Emoji API';
-            apiBadge.className = 'api-badge emoji-api';
-        }
-
-        await this.loadNextPuzzle();
+    // Update API badge
+    const apiBadge = document.querySelector('.api-badge');
+    if (player.api === 'banana') {
+        apiBadge.textContent = '🍌 Banana API';
+        apiBadge.className = 'api-badge banana-api';
+    } else {
+        apiBadge.textContent = '😊 Emoji API';
+        apiBadge.className = 'api-badge emoji-api';
     }
+
+    // Show turn indicator for multiplayer
+    if (this.model.mode === 'multi') {
+        let turnIndicator = document.getElementById('turnIndicator');
+        
+        if (!turnIndicator) {
+            turnIndicator = document.createElement('div');
+            turnIndicator.id = 'turnIndicator';
+            turnIndicator.style.cssText = `
+                text-align: center; 
+                padding: 15px; 
+                background: rgba(255,217,61,0.2); 
+                border: 2px solid rgba(255,217,61,0.5);
+                border-radius: 12px; 
+                margin-bottom: 15px; 
+                font-weight: 700;
+                font-size: 1.2em;
+                color: var(--yellow);
+            `;
+            const hudElement = document.querySelector('.game-hud');
+            hudElement.parentNode.insertBefore(turnIndicator, hudElement.nextSibling);
+        }
+        
+        turnIndicator.textContent = `${player.name}'s Turn`;
+    }
+
+    await this.loadNextPuzzle();
+}
 
   async loadNextPuzzle() {
     const answerInput = document.getElementById('answerInput');
@@ -241,6 +275,66 @@ class GameController {
 
         // Advance FIRST
         this.model.advance();
+
+        // After: this.model.advance();
+
+// Check if game is over
+if (this.model.isOver()) {
+    this.stopTimer();
+    this.model.saveResults();
+
+    // Show results for single or multiplayer
+    if (this.model.mode === 'single') {
+        const player = this.model.getActivePlayer();
+        document.getElementById('winnerName').textContent = player.name;
+        document.getElementById('finalScore').textContent =
+            player.score + " / " + this.model.totalRounds;
+        document.getElementById('accuracy').textContent =
+            Math.round((player.score / this.model.totalRounds) * 100) + "%";
+        document.getElementById('apiUsed').textContent =
+            player.api === 'banana' ? "🍌 Banana API" : "😊 Emoji API";
+        document.getElementById('resultUserId').textContent = player.id;
+        document.getElementById('resultSessionId').textContent =
+            this.model.user.sessionId;
+    } else {
+        // Multiplayer results
+        const winner = this.model.getWinner();
+        
+        if (winner === null) {
+            document.getElementById('winnerName').textContent = "It's a Tie! 🤝";
+        } else {
+            document.getElementById('winnerName').textContent = winner.name + ' Wins! 🏆';
+        }
+        
+        document.getElementById('finalScore').textContent =
+            `${this.model.player1.name}: ${this.model.player1.score} | ${this.model.player2.name}: ${this.model.player2.score}`;
+        
+        const p1Acc = Math.round((this.model.player1.score / this.model.totalRounds) * 100);
+        const p2Acc = Math.round((this.model.player2.score / this.model.totalRounds) * 100);
+        document.getElementById('accuracy').textContent = `P1: ${p1Acc}% | P2: ${p2Acc}%`;
+        
+        document.getElementById('apiUsed').textContent =
+            `P1: ${this.model.player1.api === 'banana' ? '🍌' : '😊'} | P2: ${this.model.player2.api === 'banana' ? '🍌' : '😊'}`;
+        
+        document.getElementById('resultUserId').textContent = 'Multiplayer Mode';
+        document.getElementById('resultSessionId').textContent = '—';
+    }
+
+    this.showAchievements(this.model.getActivePlayer().score, this.model.totalRounds);
+    this.view.show('results');
+    return;
+}
+
+// Next round/turn
+document.getElementById('currentRound').textContent = this.model.currentRound;
+
+// Update for next player in multiplayer
+if (this.model.mode === 'multi') {
+    this.startGameplay(); // Refresh HUD for next player's turn
+} else {
+    this.loadNextPuzzle();
+}
+
 
         // THEN check if game is over
         if (this.model.isOver()) {
@@ -374,8 +468,51 @@ listEl.innerHTML = '';
             listEl.appendChild(entryDiv);
         });
     }
+
+    
     
     document.getElementById('leaderboardOverlay').style.display = 'flex';
-
 }
+
+//mutliplayer screen functions 
+onMultiPlayerClick() {
+    console.log('⚡ EVENT: Two Players button clicked');
+    
+    // Generate initial IDs
+    window.multiplayerScreen.generateInitialIds();
+    
+    // Clear previous names
+    document.getElementById('player1Name').value = '';
+    document.getElementById('player2Name').value = '';
+    
+    this.view.show('multiplayer');
+}
+
+onStartMultiClick() {
+    console.log('⚡ EVENT: Start Multiplayer clicked');
+    
+    const p1Name = document.getElementById('player1Name').value.trim();
+    const p2Name = document.getElementById('player2Name').value.trim();
+    
+    if (p1Name === '' || p2Name === '') {
+        this.view.alert('Both players must enter their names! 🍌');
+        return;
+    }
+    
+    const p1Api = document.querySelector('.api-option.selected[data-player="1"]').dataset.api;
+    const p2Api = document.querySelector('.api-option.selected[data-player="2"]').dataset.api;
+    
+    // Setup multiplayer game in model
+    this.model.setupMulti(p1Name, p1Api, p2Name, p2Api);
+    
+    console.log('👥 Multiplayer game setup:', {
+        player1: { name: p1Name, api: p1Api },
+        player2: { name: p2Name, api: p2Api }
+    });
+    
+    // Navigate to gameplay
+    this.view.show('gameplay');
+    this.startGameplay();
+}
+
 }

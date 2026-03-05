@@ -7,10 +7,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Boogaloo&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="css/globals.css">
-
     <link rel="stylesheet" href="js/screens/loading/loading.css">
     <link rel="stylesheet" href="js/screens/home/home.css">
     <link rel="stylesheet" href="js/screens/setup/setup.css">
+    <link rel="stylesheet" href="js/screens/multiplayer/multiplayer.css">
     <link rel="stylesheet" href="js/screens/gameplay/gameplay.css">
     <link rel="stylesheet" href="js/screens/results/results.css">
     <link rel="stylesheet" href="js/screens/leaderboard/leaderboard.css">
@@ -167,6 +167,105 @@
     </div>
  </div>
 
+ <!-- Two Player Setup Screen -->
+<div id="multiplayerSetupScreen" class="screen">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="setup-card">
+        <button class="back-btn" id="btn-multi-back">← Back</button>
+
+        <div class="setup-character">👥</div>
+
+        <h2 class="setup-title">Two Player Setup</h2>
+        <p class="setup-subtitle">Create profiles for both players</p>
+
+        <div class="players-container">
+            <!-- Player 1 Card -->
+            <div class="player-setup-card">
+                <h3 class="player-card-title">🎮 Player 1</h3>
+                
+                <div class="field-block">
+                    <label class="field-label" for="player1Name">Username</label>
+                    <input
+                        type="text"
+                        id="player1Name"
+                        class="field-input"
+                        placeholder="e.g. BananaKing..."
+                        maxlength="20"
+                        autocomplete="off">
+                </div>
+
+                <div class="api-section">
+                    <label class="field-label">Pick your API</label>
+                    <div class="api-options">
+                        <button class="api-option selected" data-api="banana" data-player="1">
+                            <span class="api-option-icon">🍌</span>
+                            <span class="api-option-name">Banana</span>
+                        </button>
+                        <button class="api-option" data-api="emoji" data-player="1">
+                            <span class="api-option-icon">😊</span>
+                            <span class="api-option-name">Emoji</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="identity-preview">
+                    <div class="identity-row">
+                        <span class="identity-key">ID</span>
+                        <span class="identity-val" id="p1-id">P1-...</span>
+                    </div>
+                </div>
+            </div>
+            <div class="vs-divider" style="position: absolute; left: 50%; transform: translateX(-50%); margin-top: 150px;">
+        ⚔️
+    </div>
+
+            <!-- Player 2 Card -->
+            <div class="player-setup-card">
+                <h3 class="player-card-title">🎮 Player 2</h3>
+                
+                <div class="field-block">
+                    <label class="field-label" for="player2Name">Username</label>
+                    <input
+                        type="text"
+                        id="player2Name"
+                        class="field-input"
+                        placeholder="e.g. EmojiMaster..."
+                        maxlength="20"
+                        autocomplete="off">
+                </div>
+
+                <div class="api-section">
+                    <label class="field-label">Pick your API</label>
+                    <div class="api-options">
+                        <button class="api-option selected" data-api="banana" data-player="2">
+                            <span class="api-option-icon">🍌</span>
+                            <span class="api-option-name">Banana</span>
+                        </button>
+                        <button class="api-option" data-api="emoji" data-player="2">
+                            <span class="api-option-icon">😊</span>
+                            <span class="api-option-name">Emoji</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="identity-preview">
+                    <div class="identity-row">
+                        <span class="identity-key">ID</span>
+                        <span class="identity-val" id="p2-id">P2-...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- END PLAYERS CONTAINER -->
+        <button class="play-btn" id="btn-start-multi">
+            🍌 Let's Play Together!
+        </button>
+    </div>
+</div>
+
  <!--Gameplay screen-->
 <div class="screen" id="gameplayScreen">
         <div class="game-container">
@@ -248,8 +347,6 @@
             <button class="quit-btn" id="quitGameBtn">
                 🚪 Quit Game
             </button>
-
-            <!-- Concept indicators -->
         </div>
     </div>
 
@@ -342,7 +439,6 @@
     </div>
 </div>
 
-
  <!-- Leaderboard -->
 <div class="screen" id="leaderboardScreen">
     <div class="orb orb-1"></div>
@@ -361,8 +457,6 @@
     </div>
 </div>
 
-
-
 <script src="js/StorageManager.js"></script>
 <script src="js/GameModel.js"></script>
 <script src="js/GameView.js"></script>
@@ -371,6 +465,7 @@
 <script src="js/screens/loading/loading.js"></script>
 <script src="js/screens/home/home.js"></script>
 <script src="js/screens/setup/setup.js"></script>
+<script src="js/screens/multiplayer/multiplayer.js"></script>
 <script src="js/screens/leaderboard/leaderboard.js"></script>
 
 <script>
@@ -391,8 +486,8 @@ document.addEventListener('DOMContentLoaded', async function() {
     window.loadingScreen.buildParticles();
     await window.loadingScreen.runLoading(view);
 
+    window.multiplayerScreen.init();
     
-
     const returningUser = model.loadUser();
     if(returningUser) {
         console.log('Returning user detected: ', returningUser.username);

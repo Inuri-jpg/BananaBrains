@@ -5,7 +5,7 @@ window.leaderboardScreen = {
         this.view    = view;
     },
 
-    // Called every time the screen is shown
+    // This is bieng called every time the screen is shown
     show(fromScreen = 'home') {
         this._fromScreen = fromScreen;
         this._render();
