@@ -180,8 +180,13 @@ class GameController {
     answerInput.value = '';
 
     try {
-        const puzzle = await this.model.fetchPuzzle();
-        if (!puzzle) throw new Error('Puzzle fetch failed');
+    const puzzle = await this.model.fetchPuzzle();
+    if (!puzzle) throw new Error('Puzzle fetch failed');
+
+    window.eventBus.emit('puzzle:loaded', {
+    api: this.model.getActivePlayer().api,
+    round: this.model.currentRound
+});
 
         document.getElementById('puzzleImage').src = puzzle.question;
         document.getElementById('puzzleLoading').style.display = 'none';
@@ -251,6 +256,15 @@ class GameController {
 
     const answer = isTimeout ? -1 : Number(rawValue);
     const isCorrect = this.model.checkAnswer(answer);
+
+    // Observer pattern 
+    window.eventBus.emit('answer:submitted', {
+    correct: isCorrect,
+    timeout: isTimeout,
+    score: this.model.getActivePlayer().score,
+    round: this.model.currentRound,
+    player: this.model.getActivePlayer().name
+});
 
     const feedbackEl = document.getElementById('feedbackMessage');
     feedbackEl.style.display = 'block';
@@ -333,42 +347,6 @@ if (this.model.mode === 'multi') {
 } else {
     this.loadNextPuzzle();
 }
-        // THEN check if game is over
-        if (this.model.isOver()) {
-            this.stopTimer();
-            this.model.saveResults();
-
-            const player = this.model.getActivePlayer();
-
-            document.getElementById('winnerName').textContent = player.name;
-            document.getElementById('finalScore').textContent =
-                player.score + " / " + this.model.totalRounds;
-            document.getElementById('accuracy').textContent =
-                Math.round((player.score / this.model.totalRounds) * 100) + "%";
-            document.getElementById('apiUsed').textContent =
-                player.api === 'banana' ? "🍌 Banana API" : "😊 Emoji API";
-            document.getElementById('resultUserId').textContent = player.id;
-            document.getElementById('resultSessionId').textContent =
-                this.model.user.sessionId;
-
-            // Show achievements
-            this.launchConfetti();
-            this.showAchievements(player.score, this.model.totalRounds);
-
-            setTimeout(() => {
-            const notif = document.getElementById('leaderboardNotification');
-            if (notif) notif.style.display = 'block';
-            }, 1000);
-
-            this.view.show('results');
-            return;
-        }
-
-        // Next round
-        document.getElementById('currentRound')
-            .textContent = this.model.currentRound;
-
-        this.loadNextPuzzle();
     }, 2000);
 }
 

@@ -562,6 +562,7 @@
     </div>
 </div>
 
+<script src="js/EventBus.js"></script>
 <script src="js/StorageManager.js"></script>
 <script src="js/GameModel.js"></script>
 <script src="js/GameView.js"></script>
@@ -571,6 +572,7 @@
 <script src="js/screens/home/home.js"></script>
 <script src="js/screens/setup/setup.js"></script>
 <script src="js/screens/multiplayer/multiplayer.js"></script>
+<script src="js/screens/gameplay/gameplay.js"></script>
 <script src="js/screens/leaderboard/leaderboard.js"></script>
 <script src="js/screens/settings/settings.js"></script>
 
@@ -593,6 +595,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     await window.loadingScreen.runLoading(view);
 
     window.multiplayerScreen.init();
+    window.gameplayScreen.init();
     
     const returningUser = model.loadUser();
     if(returningUser) {
