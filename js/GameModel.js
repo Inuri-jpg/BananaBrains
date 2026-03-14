@@ -24,21 +24,43 @@ class GameModel {
         };
     }
 
-    createUser(username, apiChoice){
-        this.user = {
-            userId: this.storage.makeUserId(),
-            sessionId: this.storage.makeSessionId(),
-            username: username,
-            apiChoice: apiChoice,
-            highScore: 0,
-            gamesPlayed: 0,
-            createdAt: new Date().toISOString()
-        };
+    createUser(username, apiChoice, password){
+    this.user = {
+        userId: this.storage.makeUserId(),
+        sessionId: this.storage.makeSessionId(),
+        username: username,
+        passwordHash: password ? this.storage.hashPassword(password) : null,
+        apiChoice: apiChoice,
+        highScore: 0,
+        gamesPlayed: 0,
+        createdAt: new Date().toISOString()
+    };
 
-        this.storage.saveUser(this.user);
-        console.log('GameModel: New user created >', this.user.userId);
-        return this.user;
+    this.storage.saveUser(this.user);
+    console.log('GameModel: New user created >', this.user.userId);
+    return this.user;
+}
+
+
+// Authentication
+authenticate(username, password) {
+    const saved = this.storage.loadUser();
+
+    if (!saved || saved.username !== username) {
+        return 'not_found';
     }
+
+    if (saved.passwordHash && !this.storage.verifyPassword(password, saved.passwordHash)) {
+        console.log('GameModel: Authentication FAILED');
+        return 'wrong_password';
+    }
+
+    this.user = saved;
+    this.user.sessionId = this.storage.makeSessionId();
+    this.storage.saveUser(this.user);
+    console.log('GameModel: Authentication PASSED >', username);
+    return 'ok';
+}
 
 
     loadUser() {

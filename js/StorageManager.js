@@ -7,6 +7,21 @@ class StorageManager{
         };
     }
 
+        // Uses djb2 algorithm 
+        hashPassword(password) {
+        let hash = 5381;
+        for (let i = 0; i < password.length; i++) {
+            hash = ((hash << 5) + hash) ^ password.charCodeAt(i);
+            hash = hash & hash;
+        }
+        return 'HASH-' + (hash >>> 0).toString(16).toUpperCase();
+    }
+
+    // Verify a plaintext password against the stored hash
+    verifyPassword(plaintext, storedHash) {
+        return this.hashPassword(plaintext) === storedHash;
+    }
+
     saveUser(userObj){
         localStorage.setItem(this.KEYS.user, JSON.stringify(userObj));
         console.log('StorageManager: User saved > ', userObj.username);

@@ -105,20 +105,47 @@ class GameController {
     }
 
     onStartSingleClick() {
-        const name = this.view.getTypedName();
-        const api = this.view.getSelectedApi();
+    const name     = this.view.getTypedName();
+    const api      = this.view.getSelectedApi();
+    const password = document.getElementById('passwordInput').value;
 
-        if (name === '') {
-            this.view.alert('Please enter your username.');
+    if (name === '') {
+        this.view.alert('Please enter your username.');
+        return;
+    }
+    if (password === '') {
+        this.view.alert('Please enter a password.');
+        return;
+    }
+
+    // Week 5: Authentication — verify or register identity
+    const saved = this.model.storage.loadUser();
+
+    if (saved && saved.username === name) {
+        // Returning user — must verify password
+        const result = this.model.authenticate(name, password);
+        if (result === 'wrong_password') {
+            document.getElementById('authMessage').textContent = 'Wrong password!';
+            document.getElementById('authMessage').style.color = '#FF4444';
             return;
         }
+        document.getElementById('authMessage').textContent = '✓ Welcome back!';
+        document.getElementById('authMessage').style.color = '#4CAF50';
+    } else {
+        // New user — create identity with password
+        this.model.createUser(name, api, password);
+        document.getElementById('authMessage').textContent = '✓ Identity created!';
+        document.getElementById('authMessage').style.color = '#4CAF50';
+    }
 
-        this.model.setupSingle(name, api);
-        this._answerLocked = false;
+    this.model.setupSingle(name, api);
+    this._answerLocked = false;
 
+    setTimeout(() => {
         this.view.show('gameplay');
         this.startGameplay();
-    }
+    }, 800);
+}
 
    async startGameplay() {
     const player = this.model.getActivePlayer();
