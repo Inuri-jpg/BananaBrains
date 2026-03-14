@@ -183,6 +183,14 @@ class GameController {
     const puzzle = await this.model.fetchPuzzle();
     if (!puzzle) throw new Error('Puzzle fetch failed');
 
+    console.group('JSON API Response');
+    console.log('Raw JSON received:', JSON.stringify({
+    question: puzzle.question,
+    solution: '🔒 hidden'
+}, null, 2));
+    console.log('Deserialized object:', { api: this.model.getActivePlayer().api, round: this.model.currentRound });
+    console.groupEnd();
+
     window.eventBus.emit('puzzle:loaded', {
     api: this.model.getActivePlayer().api,
     round: this.model.currentRound
