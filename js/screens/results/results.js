@@ -201,7 +201,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const num = Number(val);
             if (Number.isNaN(num)) return alert('Enter a valid number!');
             console.log('✅ User entered number:', num);
-            // Call your game logic here
         });
     }
 });

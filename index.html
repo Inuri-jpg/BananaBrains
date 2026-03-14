@@ -428,7 +428,7 @@
     </div>
 
     <!-- Leaderboard Popup Overlay -->
-<div id="leaderboardOverlay" class="overlay" style="display: none;">
+    <div id="leaderboardOverlay" class="overlay" style="display: none;">
     <div class="leaderboard-popup">
         <button class="close-btn" id="closeLeaderboard">✕</button>
         
@@ -453,7 +453,6 @@
         <p class="leaderboard-screen-subtitle">Top Banana Brain Champions</p>
 
         <div class="leaderboard-screen-list" id="leaderboardScreenList">
-            <!-- Dynamically populated by leaderboard.js -->
         </div>
     </div>
 </div>
@@ -549,7 +548,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
 
         <!-- Action Buttons -->
@@ -560,11 +558,6 @@
             <button class="settings-btn btn-reset" id="resetSettingsBtn">
                 🔄 Reset to Default
             </button>
-        </div>
-
-        <div class="concept-strip" style="justify-content: center; margin-top: 20px;">
-            <span class="concept-tag tag-vi">👤 Virtual Identity: Saved to localStorage</span>
-            <span class="concept-tag tag-ed">⚡ Event-Driven: Interactive Controls</span>
         </div>
     </div>
 </div>
@@ -612,16 +605,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     window.leaderboardScreen.init(storage, view);
 
     window.settingsScreen.init(); 
-
-    console.log('✅ Game ready!');
-    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-    console.log('CONCEPTS ACTIVE:');
-    console.log('⚡ Event-Driven:    All buttons wired');
-    console.log('👤 Virtual Identity: localStorage ready');
-    console.log('🌐 Interoperability: Banana + Emoji APIs ready');
-    console.log('📁 Version Control:  Commit this file!');
-    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-
     }); 
 
 </script>

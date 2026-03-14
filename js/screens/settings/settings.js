@@ -7,7 +7,7 @@ window.settingsScreen = {
     },
 
     init() {
-        console.log('✓ Settings screen initialized');
+        console.log('âœ“ Settings screen initialized');
         this.loadSettings();
         this.registerEvents();
         this.updateUI();
@@ -20,7 +20,7 @@ window.settingsScreen = {
             soundToggle.addEventListener('click', () => {
                 this.currentSettings.sound = !this.currentSettings.sound;
                 this.updateUI();
-                console.log('⚡ Sound toggled:', this.currentSettings.sound);
+                console.log('âš¡ Sound toggled:', this.currentSettings.sound);
             });
         }
 
@@ -29,7 +29,7 @@ window.settingsScreen = {
             btn.addEventListener('click', () => {
                 this.currentSettings.difficulty = btn.dataset.difficulty;
                 this.updateUI();
-                console.log('⚡ Difficulty changed:', this.currentSettings.difficulty);
+                console.log('âš¡ Difficulty changed:', this.currentSettings.difficulty);
             });
         });
 
@@ -42,7 +42,7 @@ window.settingsScreen = {
                 if (this.currentSettings.timerSeconds > 10) {
                     this.currentSettings.timerSeconds -= 5;
                     this.updateUI();
-                    console.log('⚡ Timer decreased:', this.currentSettings.timerSeconds);
+                    console.log('âš¡ Timer decreased:', this.currentSettings.timerSeconds);
                 }
             });
         }
@@ -52,7 +52,7 @@ window.settingsScreen = {
                 if (this.currentSettings.timerSeconds < 60) {
                     this.currentSettings.timerSeconds += 5;
                     this.updateUI();
-                    console.log('⚡ Timer increased:', this.currentSettings.timerSeconds);
+                    console.log('âš¡ Timer increased:', this.currentSettings.timerSeconds);
                 }
             });
         }
@@ -94,14 +94,14 @@ window.settingsScreen = {
             });
         }
 
-        console.log('✓ Settings events registered');
+        console.log('âœ“ Settings events registered');
     },
 
     loadSettings() {
         const saved = localStorage.getItem('bananaBrain_settings');
         if (saved) {
             this.currentSettings = JSON.parse(saved);
-            console.log('👤 Settings loaded from localStorage:', this.currentSettings);
+            console.log('ðŸ‘¤ Settings loaded from localStorage:', this.currentSettings);
         } else {
             console.log('Using default settings');
         }
@@ -109,7 +109,7 @@ window.settingsScreen = {
 
     saveSettings() {
         localStorage.setItem('bananaBrain_settings', JSON.stringify(this.currentSettings));
-        console.log('👤 Settings saved to localStorage:', this.currentSettings);
+        console.log('ðŸ‘¤ Settings saved to localStorage:', this.currentSettings);
 
         // Show success message
         const message = document.getElementById('settingsMessage');

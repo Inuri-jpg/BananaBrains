@@ -18,10 +18,10 @@ class GameController {
     .addEventListener('click', () => this.onMultiPlayerClick());
 
     
-document.getElementById('btn-multi-back')
+    document.getElementById('btn-multi-back')
     .addEventListener('click', () => this.view.show('home'));
 
-document.getElementById('btn-start-multi')
+    document.getElementById('btn-start-multi')
     .addEventListener('click', () => this.onStartMultiClick());
 
         document.getElementById('btn-leader')
@@ -114,7 +114,6 @@ document.getElementById('btn-start-multi')
         }
 
         this.model.setupSingle(name, api);
-
         this._answerLocked = false;
 
         this.view.show('gameplay');
@@ -509,5 +508,4 @@ onStartMultiClick() {
     this.view.show('gameplay');
     this.startGameplay();
 }
-
 }
