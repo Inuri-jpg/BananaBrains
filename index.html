@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Banana Brains</title>
@@ -15,28 +15,23 @@
     <link rel="stylesheet" href="js/screens/results/results.css">
     <link rel="stylesheet" href="js/screens/leaderboard/leaderboard.css">
     <link rel="stylesheet" href="js/screens/settings/settings.css">
-    </head>
-    <body>
+</head>
+<body>
 
-    <!--Loading Screen-->
-    <div id="loadingScreen" class="screen active">
+<!-- Loading Screen -->
+<div id="loadingScreen" class="screen active">
     <div class="stars-layer" id="starsLayer"></div>
-
     <div class="loading-card">
         <div class="loading-banana">🍌</div>
-
         <h1 class="loading-title">
             <span class="word-banana">BANANA</span>
             <span class="word-brain">BRAINS</span>
         </h1>
         <p class="loading-subtitle">Math Adventure</p>
-
         <div class="progress-track">
             <div class="progress-fill" id="progressFill"></div>
         </div>
-
-        <p class="progress-label" id="progressLabel">Initializing......</p>
-
+        <p class="progress-label" id="progressLabel">Initializing...</p>
         <div class="api-badge">
             <div class="api-dot"></div>
             🌐 Connecting to Banana API + Emoji API
@@ -44,168 +39,151 @@
     </div>
 </div>
 
-  <!--Home Menu-->
-  <div id="homeScreen" class="screen">
+<!-- Home Screen -->
+<div id="homeScreen" class="screen">
     <div class="clouds-container">
         <div class="cloud cloud-a"></div>
         <div class="cloud cloud-b"></div>
         <div class="cloud cloud-c"></div>
-  </div>
+    </div>
+    <div class="trees">
+        <div class="tree">🌲</div>
+        <div class="tree">🌳</div>
+        <div class="tree">🌲</div>
+        <div class="tree">🌳</div>
+    </div>
+    <div class="ground-hill"></div>
 
-  <div class="trees">
-    <div class="tree">🌲</div>
-    <div class="tree">🌳</div>
-    <div class="tree">🌲</div>
-    <div class="tree">🌳</div>
-  </div>
-
-  <div class="ground-hill"></div>
-
-  <div class="home-panel">
-    <div class="identity-badge" id="returningBadge">
-        <div class="badge-avatar">🧠</div>
-        <div class="badge-text">
-        <div class="badge-name" id="returningName">Player</div>
-        <div class="badge-score">🏆 Best: <span id="returningScore">0</span> pts</div>    
+    <div class="home-panel">
+        <!-- Returning user identity badge -->
+        <div class="identity-badge" id="returningBadge">
+            <div class="badge-avatar">🧠</div>
+            <div class="badge-text">
+                <div class="badge-name" id="returningName">Player</div>
+                <div class="badge-score">🏆 Best: <span id="returningScore">0</span> pts</div>
+            </div>
         </div>
-    </div>
 
-    <div class="game-logo">
-        <h1>BANANA BRAINS</h1>
-    </div>
+        <div class="game-logo">
+            <h1>BANANA BRAINS</h1>
+        </div>
 
-    <div class="home-character">🧠</div>
-    <div class="menu-buttons">
-        <button class="menu-btn btn-single" id="btn-single">
-            <span class="btn-emoji">🎮</span>
-            Single Player
-        </button> 
+        <div class="home-character">🧠</div>
 
-        <button class="menu-btn btn-multi" id="btn-multi">
-            <span class="btn-emoji">👥</span>
-            Two Players
-        </button> 
-
-        <button class="menu-btn btn-leader" id="btn-leader">
-                <span class="btn-emoji">🏆</span>
-                Leaderboard
+        <div class="menu-buttons">
+            <button class="menu-btn btn-single" id="btn-single">
+                <span class="btn-emoji">🎮</span> Single Player
             </button>
-
+            <button class="menu-btn btn-multi" id="btn-multi">
+                <span class="btn-emoji">👥</span> Two Players
+            </button>
+            <button class="menu-btn btn-leader" id="btn-leader">
+                <span class="btn-emoji">🏆</span> Leaderboard
+            </button>
             <button class="menu-btn btn-settings" id="btn-settings">
-                <span class="btn-emoji">⚙️</span>
-                Settings
+                <span class="btn-emoji">⚙️</span> Settings
             </button>
         </div>
 
-        <p class="version-tag">v1.0 · Banana Brains · 2025</p>
+        <p class="version-tag">v1.0 · Banana Brains · 2026</p>
     </div>
-    </div>
+</div>
 
-    <!--Single Player Setup Screen -->
+<!-- Single Player Setup Screen -->
 <div id="setupScreen" class="screen">
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
 
     <div class="setup-card">
-        <button class="back-btn" id="btn-setup-back">Back</button>
+        <button class="back-btn" id="btn-setup-back">← Back</button>
 
         <div class="setup-character">🧠</div>
-
         <h2 class="setup-title">Create your identity</h2>
         <p class="setup-subtitle">New player? You'll be registered. Returning? You'll be verified.</p>
 
         <div class="field-block">
             <label class="field-label" for="nameInput">Your Username</label>
-            <input
-            type="text"
-            id="nameInput"
-            class="field-input"
-            placeholder="e.g. BananaKing...."
-            maxlength="20"
-            autocomplete="off">
+            <input type="text" id="nameInput" class="field-input"
+                   placeholder="e.g. BananaKing..." maxlength="20" autocomplete="off">
         </div>
 
         <div class="field-block">
             <label class="field-label" for="passwordInput">Password</label>
-            <input
-            type="password"
-            id="passwordInput"
-            class="field-input"
-            placeholder="Enter a password..."
-            maxlength="30"
-            autocomplete="off">
+            <input type="password" id="passwordInput" class="field-input"
+                   placeholder="Enter a password..." maxlength="30" autocomplete="off">
         </div>
 
-        <div id="authMessage" class="auth-message"></div>
+        <div id="authMessage" class="auth-message" style="min-height:22px; font-size:0.9em; margin-bottom:10px; font-weight:700;"></div>
 
         <div class="api-section">
-            <label class="field-label">Pick your fav</label>
+            <label class="field-label">Pick your API</label>
+            <span class="api-label-hint">Each API is an external web service on a different server — demonstrating interoperability</span>
             <div class="api-options">
                 <button class="api-option selected" data-api="banana" id="apiOpt-banana">
                     <span class="api-option-icon">🍌</span>
                     <span class="api-option-name">Banana API</span>
+                    <span class="api-option-url">marcconrad.com</span>
                 </button>
                 <button class="api-option" data-api="emoji" id="apiOpt-emoji">
                     <span class="api-option-icon">😊</span>
                     <span class="api-option-name">Emoji API</span>
+                    <span class="api-option-url">marcconrad.com</span>
                 </button>
             </div>
         </div>
 
+        <!-- Auto-generated identity reveal  -->
         <div class="identity-reveal">
-            <div class="identity-reveal-title">
-                Your auto generated Identity
-            </div>
+            <div class="identity-reveal-title">🔐 Your Auto-Generated Identity</div>
             <div class="identity-row">
                 <span class="identity-key">USER ID</span>
-                <span class="identity-val id-generating" id="display-userId">Generating....</span>
+                <span class="identity-val" id="display-userId">Generating...</span>
             </div>
             <div class="identity-row">
                 <span class="identity-key">SESSION</span>
-                <span class="identity-val id-generating" id="display-sessionId">Generating...</span>
+                <span class="identity-val" id="display-sessionId">Generating...</span>
             </div>
             <div class="identity-row">
                 <span class="identity-key">CREATED</span>
-                <span class="identity-val" id="display-created">-</span>
+                <span class="identity-val" id="display-created">—</span>
             </div>
         </div>
 
-        <button class="play-btn" id="btn-start-single">
-                   🍌 Let's Play!
-        </button>
+        <button class="play-btn" id="btn-start-single">🍌 Let's Play!</button>
     </div>
 </div>
 
-
- <!-- Two Player Setup Screen -->
+<!-- Two Player Setup screen -->
 <div id="multiplayerSetupScreen" class="screen">
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
 
     <div class="setup-card">
         <button class="back-btn" id="btn-multi-back">← Back</button>
-
         <div class="setup-character">👥</div>
-
         <h2 class="setup-title">Two Player Setup</h2>
-        <p class="setup-subtitle">Create profiles for both players</p>
+        <p class="setup-subtitle">Each player registers or logs in — both get their own identity</p>
 
         <div class="players-container">
 
-            <!-- Player 1 Card -->
+            <!-- ── Player 1 ── -->
             <div class="player-setup-card">
                 <h3 class="player-card-title">🎮 Player 1</h3>
-                
+
                 <div class="field-block">
-                    <label class="field-label" for="player1Name">Username</label>
-                    <input
-                        type="text"
-                        id="player1Name"
-                        class="field-input"
-                        placeholder="e.g. BananaKing..."
-                        maxlength="20"
-                        autocomplete="off">
+                    <label class="field-label">Username</label>
+                    <input type="text" id="player1Name" class="field-input"
+                           placeholder="e.g. BananaKing..." maxlength="20" autocomplete="off">
                 </div>
+
+                <div class="field-block">
+                    <label class="field-label">Password</label>
+                    <input type="password" id="player1Password" class="field-input"
+                           placeholder="Enter password..." maxlength="30" autocomplete="off">
+                </div>
+
+                <!-- Auth status message -->
+                <div id="p1-authMsg" style="min-height:18px; font-size:0.8em; font-weight:700; margin-bottom:8px;"></div>
 
                 <div class="api-section">
                     <label class="field-label">Pick your API</label>
@@ -223,29 +201,32 @@
 
                 <div class="identity-preview">
                     <div class="identity-row">
-                        <span class="identity-key">ID</span>
-                        <span class="identity-val" id="p1-id">P1-...</span>
+                        <span class="identity-key">USER ID</span>
+                        <span class="identity-val" id="p1-id">USER-...</span>
                     </div>
                 </div>
             </div>
-            <div class="vs-divider" style="position: absolute; left: 50%; transform: translateX(-50%); margin-top: 150px;">
-        ⚔️
-    </div>
 
-            <!-- Player 2 Card -->
+            <div class="vs-divider" style="position:absolute;left:50%;transform:translateX(-50%);margin-top:150px;">⚔️</div>
+
+            <!-- ── Player 2 ── -->
             <div class="player-setup-card">
                 <h3 class="player-card-title">🎮 Player 2</h3>
-                
+
                 <div class="field-block">
-                    <label class="field-label" for="player2Name">Username</label>
-                    <input
-                        type="text"
-                        id="player2Name"
-                        class="field-input"
-                        placeholder="e.g. EmojiMaster..."
-                        maxlength="20"
-                        autocomplete="off">
+                    <label class="field-label">Username</label>
+                    <input type="text" id="player2Name" class="field-input"
+                           placeholder="e.g. EmojiMaster..." maxlength="20" autocomplete="off">
                 </div>
+
+                <div class="field-block">
+                    <label class="field-label">Password</label>
+                    <input type="password" id="player2Password" class="field-input"
+                           placeholder="Enter password..." maxlength="30" autocomplete="off">
+                </div>
+
+                <!-- Auth status message -->
+                <div id="p2-authMsg" style="min-height:18px; font-size:0.8em; font-weight:700; margin-bottom:8px;"></div>
 
                 <div class="api-section">
                     <label class="field-label">Pick your API</label>
@@ -263,206 +244,144 @@
 
                 <div class="identity-preview">
                     <div class="identity-row">
-                        <span class="identity-key">ID</span>
-                        <span class="identity-val" id="p2-id">P2-...</span>
+                        <span class="identity-key">USER ID</span>
+                        <span class="identity-val" id="p2-id">USER-...</span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- END PLAYERS CONTAINER -->
-        <button class="play-btn" id="btn-start-multi">
-            🍌 Let's Play Together!
-        </button>
+        <button class="play-btn" id="btn-start-multi">🍌 Let's Play Together!</button>
     </div>
 </div>
 
- <!--Gameplay screen-->
+
+<!-- Game Play Screen -->
 <div class="screen" id="gameplayScreen">
-        <div class="game-container">
-            <!-- HUD (Heads-Up Display) - Shows game stats -->
-            <div class="game-hud">
-                <!-- Left side: Current player info -->
-                <div class="hud-left">
-                    <div class="player-info">
-                        <span class="player-name" id="currentPlayerName">BananaKing</span>
-                        <span class="api-indicator" id="apiIndicator">
-                            <span class="api-badge banana-api">🍌 Banana API</span>
-                        </span>
-                    </div>
-                </div>
+    <div class="game-container">
 
-                <!-- Center: Round counter -->
-                <div class="hud-center">
-                    <div class="round-display">
-                        Round <span id="currentRound">1</span> / <span id="totalRounds">5</span>
-                    </div>
-                </div>
-
-                <!-- Right side: Score and timer -->
-                <div class="hud-right">
-                    <div class="score-display">
-                        <span class="score-label">Score:</span>
-                        <span class="score-value" id="currentScore">0</span>
-                    </div>
-                    <div class="timer-display" id="timerDisplay">
-                        <span class="timer-icon">⏱️</span>
-                        <span class="timer-value" id="timerValue">30</span>s
-                    </div>
+        <!-- HUD -->
+        <div class="game-hud">
+            <div class="hud-left">
+                <div class="player-info">
+                    <span class="player-name" id="currentPlayerName">Player</span>
+                    <span class="api-indicator">
+                        <span class="api-badge banana-api">🍌 Banana API</span>
+                    </span>
                 </div>
             </div>
-
-            <!-- Main puzzle area -->
-            <div class="puzzle-container">
-                <!-- Loading state (shown while fetching from API) -->
-                <div class="puzzle-loading" id="puzzleLoading">
-                    <div class="loading-spinner"></div>
-                    <p>🌐 Fetching puzzle from API...</p>
-                    <small>Demonstrating Interoperability</small>
-                </div>
-
-                <!-- Puzzle image (received from external API) -->
-                <div class="puzzle-image-wrapper" id="puzzleImageWrapper" style="display: none;">
-                    <img 
-                        src="" 
-                        alt="Math puzzle" 
-                        id="puzzleImage"
-                        class="puzzle-image"
-                    >
-                    <p class="puzzle-instruction">What number is missing? 🤔</p>
+            <div class="hud-center">
+                <div class="round-display">
+                    Round <span id="currentRound">1</span> / <span id="totalRounds">5</span>
                 </div>
             </div>
-
-            <!-- Answer input section -->
-            <div class="answer-section">
-                <input 
-                    type="number" 
-                    id="answerInput" 
-                    placeholder="Enter your answer"
-                    autocomplete="off"
-                    min="0"
-                    max="10"
-                    disabled
-                >
-                <button class="submit-btn" id="submitAnswerBtn" disabled>
-                    ✓ Submit Answer
-                </button>
-            </div>
-
-            <!-- Feedback message (correct/incorrect) -->
-            <div class="feedback-message" id="feedbackMessage">
-            </div>
-
-            <!-- Quit button -->
-            <button class="quit-btn" id="quitGameBtn">
-                🚪 Quit Game
-            </button>
-        </div>
-    </div>
-
-  <!-- Results Screen -->  
-    <div class="screen" id="resultsScreen">
-        <div class="results-container">
-            <!-- Animated trophy -->
-            <div class="trophy-container">
-                <div class="trophy-icon" id="trophyIcon">🏆</div>
-            </div>
-
-            <!-- Confetti animation -->
-            <div class="confetti-container" id="confettiContainer">
-            </div>
-
-            <!-- Winner announcement -->
-            <div class="winner-announcement" id="winnerAnnouncement">
-                <h1 class="winner-title">🎉 Congratulations! 🎉</h1>
-                <p class="winner-name" id="winnerName">BananaKing</p>
-                <p class="winner-subtitle">You are the Banana Brain Champion!</p>
-            </div>
-
-            <!-- Single Player Results -->
-            <div class="single-player-results" id="singlePlayerResults">
-                <div class="result-card">
-                    <div class="result-header">
-                        <h2>📊 Your Performance</h2>
-                    </div>
-                    
-                    <div class="result-stats">
-                        <div class="stat-item">
-                            <span class="stat-label">Final Score:</span>
-                            <span class="stat-value" id="finalScore">4 / 5</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Accuracy:</span>
-                            <span class="stat-value" id="accuracy">80%</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">API Used:</span>
-                            <span class="stat-value" id="apiUsed">🍌 Banana API</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">User ID:</span>
-                            <span class="stat-value small-text" id="resultUserId">USER-1234567890-abc</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Session ID:</span>
-                            <span class="stat-value small-text" id="resultSessionId">SESSION-1234567890-xyz</span>
-                        </div>
-                    </div>
-
-                     <!-- Achievement badges -->
-                    <div class="achievements" id="achievementContainer">
-                    </div>
+            <div class="hud-right">
+                <div class="score-display">
+                    <span class="score-label">Score:</span>
+                    <span class="score-value" id="currentScore">0</span>
                 </div>
-            </div> 
-
-            <!-- Leaderboard position notification -->
-            <div class="leaderboard-notification" id="leaderboardNotification">
-                <p>🎖️ You've been added to the leaderboard!</p>
-                <p class="sub-text">Your score has been saved. </p>
-            </div>
-
-            <!-- Action buttons -->
-            <div class="result-actions">
-                <button class="menu-btn primary-btn" id="playAgainBtn">
-                    🔄 Play Again
-                </button>
-                <button class="menu-btn secondary-btn" id="viewLeaderboardBtn">
-                    🏆 View Leaderboard
-                </button>
-                <button class="menu-btn" id="backToHomeBtn">
-                    🏠 Back to Home
-                </button>
+                <div class="timer-display" id="timerDisplay">
+                    <span>⏱️</span>
+                    <span class="timer-value" id="timerValue">10</span>s
+                </div>
             </div>
         </div>
+
+        <!-- Puzzle area -->
+        <div class="puzzle-container">
+            <!-- Loading state while API call is in progress -->
+            <div class="puzzle-loading" id="puzzleLoading">
+                <div class="loading-spinner"></div>
+                <p>🌐 Fetching puzzle from external API...</p>
+                <small>Interoperability in action — calling a REST API over HTTP</small>
+            </div>
+            <!-- Puzzle image returned from API -->
+            <div class="puzzle-image-wrapper" id="puzzleImageWrapper" style="display:none;">
+                <img src="" alt="Math puzzle" id="puzzleImage" class="puzzle-image">
+                <p class="puzzle-instruction">What number is missing? 🤔</p>
+            </div>
+        </div>
+
+        <!-- Answer input -->
+        <div class="answer-section">
+            <input type="number" id="answerInput" placeholder="Enter your answer"
+                   autocomplete="off" min="0" max="9" disabled>
+            <button class="submit-btn" id="submitAnswerBtn" disabled>✓ Submit</button>
+        </div>
+
+        <!-- Feedback -->
+        <div class="feedback-message" id="feedbackMessage"></div>
+
+        <!-- BUG FIX: Quit button now has an event listener in GameController -->
+        <button class="quit-btn" id="quitGameBtn">🚪 Quit Game</button>
     </div>
+</div>
 
-    <!-- Leaderboard Popup Overlay -->
-    <div id="leaderboardOverlay" class="overlay" style="display: none;">
-    <div class="leaderboard-popup">
-        <button class="close-btn" id="closeLeaderboard">✕</button>
-        
-        <h2 class="leaderboard-title">🏆 Leaderboard 🏆</h2>
-        <p class="leaderboard-subtitle">Top Banana Brain Champions</p>
+<!-- Results Screen -->
+<div class="screen" id="resultsScreen">
+    <div class="results-container">
+        <div class="trophy-container">
+            <div class="trophy-icon" id="trophyIcon">🏆</div>
+        </div>
+        <div class="confetti-container" id="confettiContainer"></div>
 
-        <div class="leaderboard-list" id="leaderboardList">
+        <div class="winner-announcement" id="winnerAnnouncement">
+            <h1 class="winner-title">🎉 Congratulations! 🎉</h1>
+            <p class="winner-name" id="winnerName">Player</p>
+            <p class="winner-subtitle">Banana Brain Champion!</p>
+        </div>
+
+        <div id="singlePlayerResults">
+            <div class="result-card">
+                <div class="result-header"><h2>📊 Your Performance</h2></div>
+                <div class="result-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Final Score:</span>
+                        <span class="stat-value" id="finalScore">—</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Accuracy:</span>
+                        <span class="stat-value" id="accuracy">—</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">API Used:</span>
+                        <span class="stat-value" id="apiUsed">—</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">User ID:</span>
+                        <span class="stat-value small-text" id="resultUserId">—</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Session ID:</span>
+                        <span class="stat-value small-text" id="resultSessionId">—</span>
+                    </div>
+                </div>
+                <div class="achievements" id="achievementContainer"></div>
+            </div>
+        </div>
+
+        <div class="leaderboard-notification" id="leaderboardNotification">
+            <p>🎖️ Score saved to leaderboard!</p>
+        </div>
+
+        <div class="result-actions">
+            <button class="menu-btn primary-btn"   id="playAgainBtn">🔄 Play Again</button>
+            <button class="menu-btn secondary-btn" id="viewLeaderboardBtn">🏆 Leaderboard</button>
+            <button class="menu-btn"               id="backToHomeBtn">🏠 Home</button>
         </div>
     </div>
 </div>
 
- <!-- Leaderboard -->
+<!-- Leaderboard Screen -->
 <div class="screen" id="leaderboardScreen">
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
-
     <div class="leaderboard-screen-card">
         <button class="leaderboard-screen-back" id="btn-leaderboard-back">← Back</button>
-
         <div class="leaderboard-screen-trophy">🏆</div>
-        <h1 class="leaderboard-screen-title">🏆 Leaderboard</h1>
+        <h1 class="leaderboard-screen-title">Leaderboard</h1>
         <p class="leaderboard-screen-subtitle">Top Banana Brain Champions</p>
-
-        <div class="leaderboard-screen-list" id="leaderboardScreenList">
-        </div>
+        <div class="leaderboard-screen-list" id="leaderboardScreenList"></div>
     </div>
 </div>
 
@@ -470,31 +389,20 @@
 <div id="settingsScreen" class="screen">
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
-
     <div class="settings-container">
         <button class="back-btn" id="btn-settings-back">← Back</button>
-
         <div class="settings-header">
             <div class="settings-icon">⚙️</div>
             <h2 class="settings-title">Settings</h2>
             <p class="settings-subtitle">Customize your game experience</p>
         </div>
 
-        <!-- Success message -->
-        <div class="settings-message success" id="settingsMessage">
-            ✓ Settings saved successfully!
-        </div>
+        <div class="settings-message success" id="settingsMessage">✓ Settings saved!</div>
 
-        <!-- Settings Panel -->
         <div class="settings-panel">
-            
-            <!-- Sound Toggle -->
             <div class="setting-item">
                 <div class="setting-info">
-                    <div class="setting-label">
-                        <span class="setting-label-icon">🔊</span>
-                        Sound Effects
-                    </div>
+                    <div class="setting-label"><span class="setting-label-icon">🔊</span> Sound Effects</div>
                     <div class="setting-description">Enable or disable game sounds</div>
                 </div>
                 <div class="setting-control">
@@ -503,32 +411,21 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Volume Control -->
             <div class="setting-item">
                 <div class="setting-info">
-                    <div class="setting-label">
-                        <span class="setting-label-icon">🎵</span>
-                        Volume
-                    </div>
+                    <div class="setting-label"><span class="setting-label-icon">🎵</span> Volume</div>
                     <div class="setting-description">Adjust sound volume</div>
                 </div>
                 <div class="setting-control">
                     <div class="volume-slider-container">
-                        <input type="range" min="0" max="100" value="70" 
-                               class="volume-slider" id="volumeSlider">
+                        <input type="range" min="0" max="100" value="70" class="volume-slider" id="volumeSlider">
                         <span class="volume-value" id="volumeValue">70%</span>
                     </div>
                 </div>
             </div>
-
-            <!-- Difficulty Level -->
             <div class="setting-item">
                 <div class="setting-info">
-                    <div class="setting-label">
-                        <span class="setting-label-icon">🎯</span>
-                        Difficulty
-                    </div>
+                    <div class="setting-label"><span class="setting-label-icon">🎯</span> Difficulty</div>
                     <div class="setting-description">Choose puzzle difficulty</div>
                 </div>
                 <div class="setting-control">
@@ -539,37 +436,28 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Timer Duration -->
             <div class="setting-item">
                 <div class="setting-info">
-                    <div class="setting-label">
-                        <span class="setting-label-icon">⏱️</span>
-                        Timer
-                    </div>
-                    <div class="setting-description">Time limit per question</div>
+                    <div class="setting-label"><span class="setting-label-icon">⏱️</span> Timer</div>
+                    <div class="setting-description">Seconds per question (5–60s)</div>
                 </div>
                 <div class="setting-control">
                     <div class="timer-selector">
                         <button class="timer-btn" id="timerMinus">−</button>
-                        <span class="timer-value" id="timerValue">30s</span>
+                        <span class="timer-value" id="timerValue">10s</span>
                         <button class="timer-btn" id="timerPlus">+</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Action Buttons -->
         <div class="settings-actions">
-            <button class="settings-btn btn-save" id="saveSettingsBtn">
-                💾 Save Settings
-            </button>
-            <button class="settings-btn btn-reset" id="resetSettingsBtn">
-                🔄 Reset to Default
-            </button>
+            <button class="settings-btn btn-save"  id="saveSettingsBtn">💾 Save Settings</button>
+            <button class="settings-btn btn-reset" id="resetSettingsBtn">🔄 Reset to Default</button>
         </div>
     </div>
 </div>
+
 
 <script src="js/EventBus.js"></script>
 <script src="js/StorageManager.js"></script>
@@ -586,39 +474,48 @@
 <script src="js/screens/settings/settings.js"></script>
 
 <script>
-document.addEventListener('DOMContentLoaded', async function() {
-    console.log('Banana Brain : DOMContentLoaded event fired!');
-    console.log('Starting Game......');
+/**
+ * Application bootstrap — runs after the DOM is fully loaded.
+ * DOMContentLoaded is itself an event, demonstrating event-driven initialisation.
+ */
+document.addEventListener('DOMContentLoaded', async function () {
+    console.log('🍌 Banana Brains: DOMContentLoaded fired — bootstrapping app...');
 
-    const storage = new StorageManager();
-    const model = new GameModel(storage);
-    const view = new GameView();
+    // Instantiate MVC layers
+    const storage    = new StorageManager();
+    const model      = new GameModel(storage);
+    const view       = new GameView();
     const controller = new GameController(model, view, storage);
 
-    window.controller = controller; 
+    // Expose controller globally so screen modules can access storage/view
+    window.controller = controller;
 
+    // Register all DOM event listeners
     controller.registerEvents();
 
+    // Build animated background elements
     window.loadingScreen.buildStars();
     window.loadingScreen.buildParticles();
+
+    // Run loading animation
     await window.loadingScreen.runLoading(view);
 
+    // Initialise screen modules
     window.multiplayerScreen.init();
     window.gameplayScreen.init();
-    
+    window.leaderboardScreen.init(storage, view);
+    window.settingsScreen.init();
+
+    // Check for returning user and show identity badge
     const returningUser = model.loadUser();
-    if(returningUser) {
-        console.log('Returning user detected: ', returningUser.username);
+    if (returningUser) {
+        console.log('Returning user detected:', returningUser.username);
         view.showReturningUser(returningUser.username, returningUser.highScore);
     }
 
     view.show('home');
-
-    window.leaderboardScreen.init(storage, view);
-
-    window.settingsScreen.init(); 
-    }); 
-
+    console.log('🍌 Banana Brains: Ready!');
+});
 </script>
-    </body>
+</body>
 </html>

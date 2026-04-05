@@ -1,63 +1,71 @@
+/**
+ * settings.js
+ * Manages the Settings screen UI and persistence.
+ *
+ * BUG FIX: Previously used localStorage directly. Now uses window.controller.storage
+ * (the StorageManager instance) so all persistence goes through the same layer —
+ * consistent with the MVC architecture and better for maintainability.
+ *
+ * Virtual Identity (Week 5): timer settings affect how long a session's puzzles run.
+ * Settings are persisted in localStorage under the 'bananaBrain_settings' key.
+ */
 window.settingsScreen = {
     currentSettings: {
-        sound: true,
-        timerSeconds: 30,
-        difficulty: 'medium',
-        volume: 70
+        sound:        true,
+        timerSeconds: 10,
+        difficulty:   'medium',
+        volume:       70
     },
 
     init() {
-        console.log('âœ“ Settings screen initialized');
+        console.log('SettingsScreen: Initialized');
         this.loadSettings();
         this.registerEvents();
         this.updateUI();
     },
 
     registerEvents() {
-        // Sound toggle
+        // Sound toggle — click event on a custom toggle switch
         const soundToggle = document.getElementById('soundToggle');
         if (soundToggle) {
             soundToggle.addEventListener('click', () => {
                 this.currentSettings.sound = !this.currentSettings.sound;
                 this.updateUI();
-                console.log('âš¡ Sound toggled:', this.currentSettings.sound);
+                console.log('SettingsScreen: Sound toggled →', this.currentSettings.sound);
             });
         }
 
-        // Difficulty buttons
+        // Difficulty buttons — click events
         document.querySelectorAll('.difficulty-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 this.currentSettings.difficulty = btn.dataset.difficulty;
                 this.updateUI();
-                console.log('âš¡ Difficulty changed:', this.currentSettings.difficulty);
+                console.log('SettingsScreen: Difficulty →', this.currentSettings.difficulty);
             });
         });
 
-        // Timer controls
+        // Timer −/+ buttons
         const timerMinus = document.getElementById('timerMinus');
-        const timerPlus = document.getElementById('timerPlus');
+        const timerPlus  = document.getElementById('timerPlus');
 
         if (timerMinus) {
             timerMinus.addEventListener('click', () => {
-                if (this.currentSettings.timerSeconds > 10) {
+                if (this.currentSettings.timerSeconds > 5) {
                     this.currentSettings.timerSeconds -= 5;
                     this.updateUI();
-                    console.log('âš¡ Timer decreased:', this.currentSettings.timerSeconds);
                 }
             });
         }
-
         if (timerPlus) {
             timerPlus.addEventListener('click', () => {
                 if (this.currentSettings.timerSeconds < 60) {
                     this.currentSettings.timerSeconds += 5;
                     this.updateUI();
-                    console.log('âš¡ Timer increased:', this.currentSettings.timerSeconds);
                 }
             });
         }
 
-        // Volume slider
+        // Volume slider — 'input' event fires on every drag movement
         const volumeSlider = document.getElementById('volumeSlider');
         if (volumeSlider) {
             volumeSlider.addEventListener('input', (e) => {
@@ -69,18 +77,14 @@ window.settingsScreen = {
         // Save button
         const saveBtn = document.getElementById('saveSettingsBtn');
         if (saveBtn) {
-            saveBtn.addEventListener('click', () => {
-                this.saveSettings();
-            });
+            saveBtn.addEventListener('click', () => this.saveSettings());
         }
 
         // Reset button
         const resetBtn = document.getElementById('resetSettingsBtn');
         if (resetBtn) {
             resetBtn.addEventListener('click', () => {
-                if (confirm('Reset all settings to default?')) {
-                    this.resetSettings();
-                }
+                if (confirm('Reset all settings to default?')) this.resetSettings();
             });
         }
 
@@ -94,103 +98,85 @@ window.settingsScreen = {
             });
         }
 
-        console.log('âœ“ Settings events registered');
+        console.log('SettingsScreen: All events registered');
     },
 
+    /**
+     * Falls back to defaults if nothing is saved yet.
+     */
     loadSettings() {
-        const saved = localStorage.getItem('bananaBrain_settings');
-        if (saved) {
-            this.currentSettings = JSON.parse(saved);
-            console.log('ðŸ‘¤ Settings loaded from localStorage:', this.currentSettings);
+        const storage = window.controller ? window.controller.storage : null;
+        if (storage) {
+            this.currentSettings = storage.loadSettings();
+            console.log('SettingsScreen: Loaded via StorageManager →', this.currentSettings);
         } else {
-            console.log('Using default settings');
+            // Fallback for early init before controller is ready
+            const raw = localStorage.getItem('bananaBrain_settings');
+            if (raw) this.currentSettings = JSON.parse(raw);
         }
     },
 
     saveSettings() {
-        localStorage.setItem('bananaBrain_settings', JSON.stringify(this.currentSettings));
-        console.log('ðŸ‘¤ Settings saved to localStorage:', this.currentSettings);
+        const storage = window.controller ? window.controller.storage : null;
+        if (storage) {
+            storage.saveSettings(this.currentSettings);
+        } else {
+            localStorage.setItem('bananaBrain_settings', JSON.stringify(this.currentSettings));
+        }
+        console.log('SettingsScreen: Settings saved →', this.currentSettings);
 
-        // Show success message
         const message = document.getElementById('settingsMessage');
         if (message) {
             message.classList.add('show');
-            setTimeout(() => {
-                message.classList.remove('show');
-            }, 2000);
+            setTimeout(() => message.classList.remove('show'), 2000);
         }
-
         this.playTestSound();
     },
 
     resetSettings() {
         this.currentSettings = {
-            sound: true,
-            timerSeconds: 30,
-            difficulty: 'medium',
-            volume: 70
+            sound: true, timerSeconds: 10, difficulty: 'medium', volume: 70
         };
         this.updateUI();
         this.saveSettings();
-        console.log('Settings reset to defaults');
+        console.log('SettingsScreen: Reset to defaults');
     },
 
     updateUI() {
-        // Update sound toggle
         const soundToggle = document.getElementById('soundToggle');
         if (soundToggle) {
-            if (this.currentSettings.sound) {
-                soundToggle.classList.add('active');
-            } else {
-                soundToggle.classList.remove('active');
-            }
+            soundToggle.classList.toggle('active', this.currentSettings.sound);
         }
 
-        // Update difficulty buttons
         document.querySelectorAll('.difficulty-btn').forEach(btn => {
-            if (btn.dataset.difficulty === this.currentSettings.difficulty) {
-                btn.classList.add('selected');
-            } else {
-                btn.classList.remove('selected');
-            }
+            btn.classList.toggle('selected', btn.dataset.difficulty === this.currentSettings.difficulty);
         });
 
-        // Update timer value
         const timerValue = document.getElementById('timerValue');
-        if (timerValue) {
-            timerValue.textContent = this.currentSettings.timerSeconds + 's';
-        }
+        if (timerValue) timerValue.textContent = this.currentSettings.timerSeconds + 's';
 
-        // Update volume slider and value
         const volumeSlider = document.getElementById('volumeSlider');
-        const volumeValue = document.getElementById('volumeValue');
-        if (volumeSlider) {
-            volumeSlider.value = this.currentSettings.volume;
-        }
-        if (volumeValue) {
-            volumeValue.textContent = this.currentSettings.volume + '%';
-        }
+        const volumeValue  = document.getElementById('volumeValue');
+        if (volumeSlider) volumeSlider.value  = this.currentSettings.volume;
+        if (volumeValue)  volumeValue.textContent = this.currentSettings.volume + '%';
     },
 
+    /** Play a brief test tone using the Web Audio API to confirm sound is working. */
     playTestSound() {
         if (!this.currentSettings.sound) return;
-
         try {
-            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-
+            const ctx        = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = ctx.createOscillator();
+            const gain       = ctx.createGain();
+            oscillator.connect(gain);
+            gain.connect(ctx.destination);
             oscillator.frequency.value = 523.25; // C5
-            oscillator.type = 'sine';
-            gainNode.gain.value = this.currentSettings.volume / 100 * 0.3;
-
+            oscillator.type            = 'sine';
+            gain.gain.value            = this.currentSettings.volume / 100 * 0.3;
             oscillator.start();
-            oscillator.stop(audioContext.currentTime + 0.2);
-        } catch (error) {
-            console.log('Web Audio API not available');
+            oscillator.stop(ctx.currentTime + 0.2);
+        } catch (e) {
+            console.log('SettingsScreen: Web Audio API not available');
         }
     }
 };

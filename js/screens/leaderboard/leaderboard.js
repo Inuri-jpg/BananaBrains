@@ -51,7 +51,7 @@ window.leaderboardScreen = {
         });
     },
 
-    // Returns to whatever screen opened the leaderboard
+    // Returns to the screen which opened the leaderboard
     goBack() {
         this.view.show(this._fromScreen || 'home');
     }

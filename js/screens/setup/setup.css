@@ -174,7 +174,7 @@
 .api-option-name { font-size: 0.85em; }
 .api-option-url  { font-size: 0.62em; opacity: 0.5; font-family: monospace; }
 
-/* shows the sutogenerated IDd tot he user so that they cans ee their identity */
+/* shows the sutogenerated ID to the user so that they can see their identity */
 .identity-reveal {
     width: 100%;
     background: rgba(255,217,61,0.06);
