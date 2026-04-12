@@ -4,10 +4,10 @@
  *
  * This is the central event system for the entire application.
  * Components register listeners with .on() and fire events with .emit().
- * This decouples producers (e.g. GameController) from consumers (e.g. GameView, gameplay.js),
- * so neither side needs a direct reference to the other — a key benefit of Event-Driven design.
+ * This decouples producers (e.g. GameController) from consumers so neither side needs a direct reference to 
+ * the other - a key benefit of Event-Driven design.
  *
- * Design pattern: Observer Pattern (Week 4 — Event-Driven Programming)
+ * Design pattern: Observer Pattern 
  * Interoperability note: EventBus acts as internal middleware between components,
  * analogous to how message brokers like RabbitMQ route messages between services.
  */
@@ -32,7 +32,7 @@ class EventBus {
     }
 
     /**
-     * Publish an event — notify all registered observers.
+     * Publish an event - notify all registered observers.
      * @param {string} event - The event name
      * @param {*}      data  - Payload passed to every listener
      */
@@ -44,7 +44,7 @@ class EventBus {
 
     /**
      * Unsubscribe a specific listener from an event.
-     * Important for memory management — unused listeners are removed
+     * Important for memory management â€” unused listeners are removed
      * to prevent memory leaks (best practice from Week 4).
      * @param {string}   event - The event name
      * @param {Function} fn    - The exact function reference to remove
@@ -56,5 +56,5 @@ class EventBus {
     }
 }
 
-// Global instance of EventBus for the entire application
+// Global singleton shared across the entire application
 window.eventBus = new EventBus();

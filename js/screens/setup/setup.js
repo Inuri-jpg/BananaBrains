@@ -1,6 +1,6 @@
 /**
  * setup.js
- * Setup screen module — behaviour is handled by GameController.
+ * Setup screen module behaviour is handled by GameController.
  * The setup screen's events (nameInput, api selection, btn-start-single)
  * are all registered centrally in GameController.registerEvents().
  */

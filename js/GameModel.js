@@ -4,15 +4,15 @@
  *
  * Responsibilities:
  *  - Holds all game state (players, scores, rounds, timer)
- *  - Fetches puzzles from external APIs (Interoperability — Week 3)
- *  - Manages user authentication and identity (Virtual Identity — Week 5)
+ *  - Fetches puzzles from external APIs 
+ *  - Manages user authentication and identity 
  *  - Contains pure game logic (no DOM access)
  *
  * Interoperability (Week 3):
  *   fetchPuzzle() makes an HTTP GET request to an external REST API
  *   (marcconrad.com) running on a different server and written in a different
  *   language (PHP). The response is JSON, which is deserialized with
- *   response.json(). This is syntactic interoperability — both systems agree
+ *   response.json(). This is syntactic interoperability, both systems agree
  *   on HTTP as the protocol and JSON as the data format.
  *   Chosen over SOAP because REST is lightweight, stateless, and requires no
  *   XML envelope — ideal for a browser-based game fetching simple puzzle data.
@@ -37,7 +37,7 @@ class GameModel {
 
         /**
          * External API endpoints.
-         * Both are REST APIs returning JSON over HTTPS — demonstrating
+         * Both are REST APIs returning JSON over HTTPS demonstrating
          * that the game can interoperate with multiple independent services.
          * The player chooses which API to use, so each player in a multiplayer
          * game may call a DIFFERENT external server — illustrating heterogeneous
@@ -45,16 +45,14 @@ class GameModel {
          */
         this.API = {
             banana: 'https://marcconrad.com/uob/banana/api.php',
-            emoji:  'https://marcconrad.com/uob/emoji/api.php'
+            emoji:  'https://marcconrad.com/uob/smile/api.php'
         };
     }
-
-    // ─── Identity & Authentication (Week 5) ──────────────────────────────────
 
     /**
      * Create a new user and persist their virtual identity.
      * A unique userId (permanent) and sessionId (per-login) are generated.
-     * The password is hashed before storage — plain text passwords are never saved.
+     * The password is hashed before storage plain text passwords are never saved.
      */
     createUser(username, apiChoice, password) {
         this.user = {
@@ -76,7 +74,7 @@ class GameModel {
      * Authenticate a returning user.
      * Compares the entered password against the stored hash.
      * A new sessionId is issued on every successful login, invalidating
-     * any previous session — this is stateless session management.
+     * any previous session â€” this is stateless session management.
      * @returns {'ok' | 'not_found' | 'wrong_password'}
      */
     authenticate(username, password) {
@@ -114,8 +112,6 @@ class GameModel {
         }
         this.storage.saveUser(this.user);
     }
-
-    // ─── Game Setup ───────────────────────────────────────────────────────────
 
     setupSingle(username, apiChoice) {
         this.mode         = 'single';
@@ -166,31 +162,29 @@ class GameModel {
         });
     }
 
-    // ─── API / Interoperability (Week 3) ──────────────────────────────────────
-
     /**
      * Fetch a puzzle from the external REST API chosen by the active player.
      *
      * This method demonstrates interoperability:
      *  - Uses the Fetch API to make an HTTP GET request (REST, not SOAP/GraphQL)
      *  - The remote server (marcconrad.com) runs PHP on different infrastructure
-     *  - The JSON response is deserialized with response.json() — this is
+     *  - The JSON response is deserialized with response.json(), this is
      *    syntactic interoperability: both sides agree on HTTP + JSON format
      *  - Error handling ensures the game degrades gracefully on network failure
      *
      * Why REST over SOAP?
      *  REST is stateless, lightweight, and returns JSON which is natively
      *  parsed by JavaScript. SOAP would require XML parsing and is far more
-     *  verbose — unnecessary overhead for a simple puzzle request.
+     *  verbose â€” unnecessary overhead for a simple puzzle request.
      */
     async fetchPuzzle() {
         const activePlayer = this.getActivePlayer();
         const apiUrl       = this.API[activePlayer.api];
 
-        console.log(`GameModel: Fetching puzzle from [${activePlayer.api}] API → ${apiUrl}`);
+        console.log(`GameModel: Fetching puzzle from [${activePlayer.api}] API’ ${apiUrl}`);
 
         try {
-            // HTTP GET request — the REST verb for retrieving a resource
+            // HTTP GET request the REST verb for retrieving a resource
             const response = await fetch(apiUrl);
 
             if (!response.ok) {
@@ -209,8 +203,6 @@ class GameModel {
             return null;
         }
     }
-
-    // ─── Game Logic ───────────────────────────────────────────────────────────
 
     getActivePlayer() {
         if (this.mode === 'single') return this.player1;

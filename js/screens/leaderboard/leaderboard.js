@@ -5,7 +5,7 @@ window.leaderboardScreen = {
         this.view    = view;
     },
 
-    // This is bieng called every time the screen is shown
+    // This is being called every time the screen is shown
     show(fromScreen = 'home') {
         this._fromScreen = fromScreen;
         this._render();
@@ -31,7 +31,7 @@ window.leaderboardScreen = {
 
         leaderboard.forEach((entry, index) => {
             const rank  = index + 1;
-            const medal = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : `${rank}.`;
+            const medal = rank === 1 ? '1️⃣' : rank === 2 ? '2️⃣' : rank === 3 ? '3️⃣' : `${rank}.`;
 
             const div = document.createElement('div');
             div.className = 'lb-entry';
@@ -42,7 +42,7 @@ window.leaderboardScreen = {
                     <div class="lb-name">${entry.name}</div>
                     <div class="lb-details">
                         <span>${entry.api === 'banana' ? '🍌 Banana' : '😊 Emoji'}</span>
-                        <span>📅 ${entry.date}</span>
+                        <span> 📅 ${entry.date}</span>
                     </div>
                 </div>
                 <div class="lb-score">${entry.score}</div>

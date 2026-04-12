@@ -2,16 +2,16 @@
  * StorageManager.js
  * Handles all persistence using the browser's localStorage API.
  *
- * Virtual Identity (Week 5):
+ * Virtual Identity :
  *   - Saves and loads user objects (userId, sessionId, passwordHash)
- *   - hashPassword() uses the djb2 algorithm — a fast non-cryptographic hash.
+ *   - hashPassword() uses the djb2 algorithm a fast non-cryptographic hash.
  *     NOTE: djb2 is used here for demonstration purposes. In a production system,
  *     a cryptographic hash such as bcrypt or SHA-256 via the Web Crypto API
  *     would be required to properly protect user passwords.
  *
- * Interoperability (Week 3):
+ * Interoperability:
  *   - Data is serialised to JSON (JSON.stringify) before storage and
- *     deserialised (JSON.parse) on retrieval — demonstrating syntactic
+ *     deserialised (JSON.parse) on retrieval demonstrating syntactic
  *     interoperability within the application layer.
  *
  * All localStorage keys are namespaced under 'bananaBrain_' to avoid
@@ -26,10 +26,8 @@ class StorageManager {
         };
     }
 
-    // ─── Password Hashing ────────────────────────────────────────────────────
-
     /**
-     * djb2 hash algorithm — converts a plaintext password to a hex string.
+     * djb2 hash algorithm converts a plaintext password to a hex string.
      * Trade-off: fast and dependency-free, but not cryptographically secure.
      * A production app would use bcrypt (server-side) or Web Crypto SHA-256.
      * @param {string} password
@@ -46,7 +44,7 @@ class StorageManager {
 
     /**
      * Verify a plaintext password against its stored hash.
-     * Re-hashes the plaintext and compares — passwords are never stored in plain text.
+     * Re-hashes the plaintext and compares â€” passwords are never stored in plain text.
      * @param {string} plaintext
      * @param {string} storedHash
      * @returns {boolean}
@@ -55,11 +53,9 @@ class StorageManager {
         return this.hashPassword(plaintext) === storedHash;
     }
 
-    // ─── User Persistence ────────────────────────────────────────────────────
-
     /**
      * Serialise user object to JSON and save in localStorage.
-     * JSON serialisation = syntactic interoperability (Week 3).
+     * JSON serialisation = syntactic interoperability.
      */
     saveUser(userObj) {
         localStorage.setItem(this.KEYS.user, JSON.stringify(userObj));
@@ -82,8 +78,6 @@ class StorageManager {
         console.log('StorageManager: User deleted');
     }
 
-    // ─── Leaderboard ─────────────────────────────────────────────────────────
-
     addScore(name, userId, score, api) {
         const board = this.loadLeaderboard();
         board.push({ name, userId, score, api, date: new Date().toLocaleDateString() });
@@ -96,8 +90,6 @@ class StorageManager {
         const saved = localStorage.getItem(this.KEYS.leaderboard);
         return saved ? JSON.parse(saved) : [];
     }
-
-    // ─── Settings ────────────────────────────────────────────────────────────
 
     loadSettings() {
         const saved = localStorage.getItem(this.KEYS.settings);
@@ -114,22 +106,39 @@ class StorageManager {
         console.log('StorageManager: All data cleared');
     }
 
-    // ─── Identity Generators ─────────────────────────────────────────────────
-
     /**
      * Generate a unique User ID combining a timestamp and random number.
-     * This forms the persistent virtual identity for the player (Week 5).
+     * This forms the persistent virtual identity for the player.
+     *
+     * Alternative approaches considered:
+     *  - UUID v4 (crypto.randomUUID): more collision-resistant but requires
+     *    the Web Crypto API (not available in all older browsers)
+     *  - Server-generated IDs: safer as the server controls uniqueness,
+     *    but would require a backend, unnecessary for this client-side game
+     *  - Incrementing integers: simple but reveals user count and not suitable
+     *    for a distributed system
+     * Chosen approach: timestamp + random suffix gives sufficient uniqueness
+     * for a single-device game without any dependencies.
      */
     makeUserId() {
         return 'USER-' + Date.now() + '-' + Math.floor(Math.random() * 9000 + 1000);
     }
 
     /**
-     * Generate a Session ID — regenerated on every login.
-     * Sessions expire when the browser tab closes (no persistent session cookie),
-     * which is the stateless approach appropriate for this application.
-     * In a production system, sessions would be managed server-side with
-     * HttpOnly cookies and a session expiry timeout.
+     * Generate a Session ID regenerated on every login.
+     * Sessions expire when the browser tab closes (no persistent session cookie).
+     *
+     * Alternative approaches considered:
+     *  - JWT (JSON Web Tokens): stateless, cryptographically signed tokens
+     *    that carry claims (userId, expiry). Used in production REST APIs.
+     *    Would be ideal here but requires a server to sign and verify.
+     *  - OAuth 2.0: delegates authentication to a trusted provider (Google, etc.)
+     *    Removes the need to manage passwords entirely â€” most secure option.
+     *  - HttpOnly session cookies: server sets a cookie the JS cannot read,
+     *    protecting against XSS attacks. Not possible without a backend.
+     * Chosen approach: localStorage sessionId is appropriate for a
+     * client-only game, with the trade-off that it is less secure than
+     * server-managed sessions.
      */
     makeSessionId() {
         return 'SESS-' + Date.now() + '-' + Math.floor(Math.random() * 900 + 100);

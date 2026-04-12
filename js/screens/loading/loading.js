@@ -48,7 +48,7 @@ window.loadingScreen = {
 
     /* Building floating banana particles*/
     buildParticles() {
-        const emojis = ['🍌', '🧠', '⭐', '🔢', '🎯', '💡'];
+        const emojis = ['🍍', '🍒', '🍓', '🍇', '🍉', '🍌', '🥝', '🍑', '🍋'];
         
         for (let i=0; i<12; i++){
             const p = document.createElement('div');

@@ -2,11 +2,7 @@
  * settings.js
  * Manages the Settings screen UI and persistence.
  *
- * BUG FIX: Previously used localStorage directly. Now uses window.controller.storage
- * (the StorageManager instance) so all persistence goes through the same layer —
- * consistent with the MVC architecture and better for maintainability.
- *
- * Virtual Identity (Week 5): timer settings affect how long a session's puzzles run.
+ * Virtual Identity - timer settings affect how long a session's puzzles run.
  * Settings are persisted in localStorage under the 'bananaBrain_settings' key.
  */
 window.settingsScreen = {
@@ -25,26 +21,26 @@ window.settingsScreen = {
     },
 
     registerEvents() {
-        // Sound toggle — click event on a custom toggle switch
+        // Sound toggle - click event on a custom toggle switch
         const soundToggle = document.getElementById('soundToggle');
         if (soundToggle) {
             soundToggle.addEventListener('click', () => {
                 this.currentSettings.sound = !this.currentSettings.sound;
                 this.updateUI();
-                console.log('SettingsScreen: Sound toggled →', this.currentSettings.sound);
+                console.log('SettingsScreen: Sound toggled’', this.currentSettings.sound);
             });
         }
 
-        // Difficulty buttons — click events
+        // Difficulty buttons â€” click events
         document.querySelectorAll('.difficulty-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 this.currentSettings.difficulty = btn.dataset.difficulty;
                 this.updateUI();
-                console.log('SettingsScreen: Difficulty →', this.currentSettings.difficulty);
+                console.log('SettingsScreen: Difficulty’', this.currentSettings.difficulty);
             });
         });
 
-        // Timer −/+ buttons
+        // Timer -/+ buttons
         const timerMinus = document.getElementById('timerMinus');
         const timerPlus  = document.getElementById('timerPlus');
 
@@ -65,7 +61,7 @@ window.settingsScreen = {
             });
         }
 
-        // Volume slider — 'input' event fires on every drag movement
+        // Volume slider - 'input' event fires on every drag movement
         const volumeSlider = document.getElementById('volumeSlider');
         if (volumeSlider) {
             volumeSlider.addEventListener('input', (e) => {
@@ -101,14 +97,11 @@ window.settingsScreen = {
         console.log('SettingsScreen: All events registered');
     },
 
-    /**
-     * Falls back to defaults if nothing is saved yet.
-     */
     loadSettings() {
         const storage = window.controller ? window.controller.storage : null;
         if (storage) {
             this.currentSettings = storage.loadSettings();
-            console.log('SettingsScreen: Loaded via StorageManager →', this.currentSettings);
+            console.log('SettingsScreen: Loaded via StorageManager', this.currentSettings);
         } else {
             // Fallback for early init before controller is ready
             const raw = localStorage.getItem('bananaBrain_settings');
@@ -123,7 +116,7 @@ window.settingsScreen = {
         } else {
             localStorage.setItem('bananaBrain_settings', JSON.stringify(this.currentSettings));
         }
-        console.log('SettingsScreen: Settings saved →', this.currentSettings);
+        console.log('SettingsScreen: Settings saved â†’', this.currentSettings);
 
         const message = document.getElementById('settingsMessage');
         if (message) {

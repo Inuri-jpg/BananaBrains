@@ -3,19 +3,19 @@
  * The Controller layer in the MVC architecture.
  *
  * Responsibilities:
- *  - Registers all DOM event listeners (Event-Driven Programming — Week 4)
+ *  - Registers all DOM event listeners 
  *  - Mediates between GameModel (data/logic) and GameView (display)
- *  - Orchestrates the game loop: fetch puzzle → start timer → handle answer → advance
+ *  - Orchestrates the game loop: fetch puzzle start timer, handle answer in advance
  *
- * Event-Driven Programming (Week 4):
- *   All user interactions are handled through addEventListener — the browser's
+ * Event-Driven Programming :
+ *   All user interactions are handled through addEventListener and the browser's
  *   built-in event system. When a button is clicked, the DOM generates an event,
  *   which is dispatched to the registered handler function. This is the classic
- *   event-driven flow: Event Generation → Dispatching → Processing → Response.
+ *   event-driven flow: Event Generation -> Dispatching -> Processing -> Response.
  *
  *   Additionally, the custom EventBus (Observer pattern) is used to broadcast
  *   game-state events (puzzle:loaded, answer:submitted, game:over) to decoupled
- *   listeners in gameplay.js — so the controller does not need to know which
+ *   listeners in gameplay.js, so the controller does not need to know which
  *   other components are listening.
  */
 class GameController {
@@ -27,18 +27,10 @@ class GameController {
         this._answerLocked = false; // prevents double-submission during feedback delay
     }
 
-    // ─── Event Registration (Week 4 — Event-Driven Programming) ──────────────
-
-    /**
-     * Register all DOM event listeners.
-     * Using addEventListener (external JS, not inline HTML onclick) is best
-     * practice — it separates behaviour from markup and allows multiple handlers
-     * on the same element.
-     */
     registerEvents() {
         console.log('GameController: Registering all event listeners...');
 
-        // ── Home screen ──
+        // Home screen
         document.getElementById('btn-single')
             .addEventListener('click', () => this.onSinglePlayerClick());
 
@@ -51,7 +43,7 @@ class GameController {
         document.getElementById('btn-settings')
             .addEventListener('click', () => this.view.show('settings'));
 
-        // ── Setup screen ──
+        // Setup screen 
         document.getElementById('btn-setup-back')
             .addEventListener('click', () => this.view.show('home'));
 
@@ -65,31 +57,30 @@ class GameController {
         document.getElementById('btn-start-single')
             .addEventListener('click', () => this.onStartSingleClick());
 
-        // ── Multiplayer setup screen ──
+        //Multiplayer setup screen
         document.getElementById('btn-multi-back')
             .addEventListener('click', () => this.view.show('home'));
 
         document.getElementById('btn-start-multi')
             .addEventListener('click', () => this.onStartMultiClick());
 
-        // ── Gameplay screen ──
+        //Gameplay screen 
         document.getElementById('submitAnswerBtn')
             .addEventListener('click', () => this.handleAnswerSubmit());
 
-        // Keyboard event — Enter key submits answer (event type: 'keypress')
+        // Keyboard event - Enter key submits answer (event type: 'keypress')
         document.getElementById('answerInput')
             .addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') this.handleAnswerSubmit();
             });
 
-        // BUG FIX: Quit button now has a registered event listener
         document.getElementById('quitGameBtn')
             .addEventListener('click', () => {
                 this.stopTimer();
                 this.view.show('home');
             });
 
-        // ── Results screen ──
+        // Results screen 
         document.getElementById('playAgainBtn')
             .addEventListener('click', () => this.view.show('setup'));
 
@@ -99,15 +90,14 @@ class GameController {
         document.getElementById('backToHomeBtn')
             .addEventListener('click', () => this.view.show('home'));
 
-        // ── Leaderboard screen ──
+        //Leaderboard screen 
         document.getElementById('btn-leaderboard-back')
             .addEventListener('click', () => window.leaderboardScreen.goBack());
 
         console.log('GameController: All event listeners registered successfully.');
     }
 
-    // ─── Setup Screen Handlers ────────────────────────────────────────────────
-
+    // Setup Screen Handlers 
     onSinglePlayerClick() {
         // Pre-fill name if returning user
         if (this.model.user) {
@@ -120,7 +110,7 @@ class GameController {
     }
 
     onApiOptionClick(clickedBtn) {
-        // Only one API option may be selected at a time — deselect others first
+        // Only one API option may be selected at a time, deselect others first
         document.querySelectorAll('.api-option').forEach(b => b.classList.remove('selected'));
         clickedBtn.classList.add('selected');
     }
@@ -135,10 +125,10 @@ class GameController {
     /**
      * Handle the "Let's Play!" button.
      *
-     * Virtual Identity flow (Week 5):
+     * Virtual Identity:
      *  - If a saved user with this username exists → authenticate (verify password)
      *  - Otherwise → register (create identity with hashed password)
-     * This mirrors real-world login/register flows, implementing virtual identity
+     *  implementing virtual identity
      * through a password + unique userId + sessionId combination.
      */
     onStartSingleClick() {
@@ -159,19 +149,19 @@ class GameController {
         const saved = this.model.storage.loadUser();
 
         if (saved && saved.username === name) {
-            // Returning user — verify their virtual identity
+            // Returning user verify their virtual identity
             const result = this.model.authenticate(name, password);
             if (result === 'wrong_password') {
-                authMsg.textContent = '✗ Wrong password! Try again.';
+                authMsg.textContent = '❌ Wrong password! Try again.';
                 authMsg.style.color = '#FF4444';
                 return;
             }
-            authMsg.textContent = '✓ Welcome back, ' + name + '!';
+            authMsg.textContent = '✅ Welcome back, ' + name + '!';
             authMsg.style.color = '#4CAF50';
         } else {
-            // New user — create and persist virtual identity
+            // New user create and persist virtual identity
             this.model.createUser(name, api, password);
-            authMsg.textContent = '✓ Identity created! Welcome, ' + name + '!';
+            authMsg.textContent = '✅ Identity created! Welcome, ' + name + '!';
             authMsg.style.color = '#4CAF50';
         }
 
@@ -185,7 +175,7 @@ class GameController {
         }, 800);
     }
 
-    // ─── Multiplayer Setup ────────────────────────────────────────────────────
+    // Multiplayer Setup
 
     onMultiPlayerClick() {
         console.log('GameController: Two Players button clicked');
@@ -198,13 +188,13 @@ class GameController {
     /**
      * Handle "Let's Play Together!" button.
      *
-     * Virtual Identity (Week 5):
+     * Virtual Identity:
      *   Each player goes through the same register/authenticate flow as single player.
      *   - If a saved user with that username exists → verify their password
      *   - Otherwise → create a new identity with a hashed password
      *   Both players get independent userId and sessionId values.
      *
-     * Interoperability (Week 3):
+     *   Interoperability :
      *   Each player independently picks an API. In multiplayer, Player 1's turns
      *   will call their chosen API and Player 2's turns will call theirs — meaning
      *   two different external servers may be called within the same game session.
@@ -215,7 +205,7 @@ class GameController {
         const p1Pass = document.getElementById('player1Password').value;
         const p2Pass = document.getElementById('player2Password').value;
 
-        // ── Validation ──
+        // Validation 
         if (p1Name === '' || p2Name === '') {
             this.view.alert('Both players must enter their names!');
             return;
@@ -234,7 +224,7 @@ class GameController {
         const p1Api   = p1ApiEl ? p1ApiEl.dataset.api : 'banana';
         const p2Api   = p2ApiEl ? p2ApiEl.dataset.api : 'banana';
 
-        // ── Authenticate / Register Player 1 ──
+        // Authenticate / Register Player 1 
         const p1Result = this._authenticateOrRegister(p1Name, p1Api, p1Pass);
         if (!p1Result.ok) {
             window.multiplayerScreen.showAuthMessage(1, p1Result.msg, '#FF4444');
@@ -243,7 +233,7 @@ class GameController {
         window.multiplayerScreen.showAuthMessage(1, p1Result.msg, '#4CAF50');
         window.multiplayerScreen.showRealId(1, p1Result.userId);
 
-        // ── Authenticate / Register Player 2 ──
+        // Authenticate / Register Player 2 
         const p2Result = this._authenticateOrRegister(p2Name, p2Api, p2Pass);
         if (!p2Result.ok) {
             window.multiplayerScreen.showAuthMessage(2, p2Result.msg, '#FF4444');
@@ -260,7 +250,7 @@ class GameController {
         // Setup game model with both players' confirmed identities
         this.model.setupMulti(p1Name, p1Api, p2Name, p2Api, p1Result.userId, p2Result.userId);
 
-        // Short delay so players can see their ✓ messages
+        // Short delay so players can see their âœ“ messages
         setTimeout(() => {
             this.view.show('gameplay');
             this.startGameplay();
@@ -282,30 +272,30 @@ class GameController {
         const saved = this.storage.loadUser();
 
         if (saved && saved.username === username) {
-            // Returning user — verify password
+            // Returning user - verify password
             if (saved.passwordHash && !this.storage.verifyPassword(password, saved.passwordHash)) {
-                return { ok: false, msg: '✗ Wrong password!', userId: '' };
+                return { ok: false, msg: 'Wrong password!', userId: '' };
             }
             const sessionId = this.storage.makeSessionId();
             // Update session without clobbering the stored record for the active user
             return {
                 ok:     true,
-                msg:    '✓ Welcome back, ' + username + '!',
+                msg:    'Welcome back, ' + username + '!',
                 userId: saved.userId
             };
         } else {
-            // New player — generate a fresh identity (not saved to localStorage
+            // New player generate a fresh identity (not saved to localStorage
             // during multiplayer to avoid overwriting player 1's record)
             const userId = this.storage.makeUserId();
             return {
                 ok:     true,
-                msg:    '✓ Identity created for ' + username + '!',
+                msg:    'Identity created for ' + username + '!',
                 userId: userId
             };
         }
     }
 
-    // ─── Gameplay ─────────────────────────────────────────────────────────────
+    // Gameplay 
 
     async startGameplay() {
         const player = this.model.getActivePlayer();
@@ -317,12 +307,12 @@ class GameController {
         document.getElementById('currentScore').textContent      = player.score;
 
         /**
-         * API badge shift (Interoperability — Week 3):
+         * API badge shift:
          * In multiplayer, each player may use a DIFFERENT external API.
          * The badge updates on every turn switch so it always shows which
          * external service is being called for THIS player's puzzle.
-         * Player 1 → may call Banana API (marcconrad.com/uob/banana)
-         * Player 2 → may call Emoji API  (marcconrad.com/uob/emoji)
+         * Player 1 - may call Banana API (marcconrad.com/uob/banana)
+         * Player 2 - may call Emoji API  (marcconrad.com/uob/emoji)
          * Both are independent REST services on the same host but different endpoints.
          */
         const apiBadge = document.querySelector('.api-badge');
@@ -331,7 +321,7 @@ class GameController {
                 apiBadge.textContent = '🍌 Banana API';
                 apiBadge.className   = 'api-badge banana-api';
             } else {
-                apiBadge.textContent = '😊 Emoji API';
+                apiBadge.textContent = '😊 Smiley API';
                 apiBadge.className   = 'api-badge emoji-api';
             }
         }
@@ -353,8 +343,8 @@ class GameController {
                 hud.parentNode.insertBefore(turnIndicator, hud.nextSibling);
             }
             // Show player name AND which API they are using this turn
-            const apiLabel = player.api === 'banana' ? '🍌 Banana API' : '😊 Emoji API';
-            turnIndicator.textContent = `${player.name}'s Turn  ·  ${apiLabel}`;
+            const apiLabel = player.api === 'banana' ? '🍌Banana API' : '😊 Smiley API';
+            turnIndicator.textContent = `${player.name}'s Turn ${apiLabel}`;
         }
 
         await this.loadNextPuzzle();
@@ -363,10 +353,10 @@ class GameController {
     /**
      * Fetch the next puzzle and update the UI.
      *
-     * Interoperability in action (Week 3):
+     * Interoperability in action:
      *  This method calls model.fetchPuzzle() which makes an HTTP GET request
      *  to an external REST API. The puzzle image URL is returned in the JSON
-     *  response and set as the src of an <img> tag — the browser then makes a
+     *  response and set as the src of an <img> tag the browser then makes a
      *  second HTTP request to fetch the image. This is cross-system
      *  interoperability: our JS app, the PHP API server, and the image server
      *  all communicate via HTTP without needing to know each other's internals.
@@ -389,9 +379,9 @@ class GameController {
             if (!puzzle) throw new Error('Puzzle fetch returned null');
 
             // Log the raw JSON response for the video demonstration
-            console.group('🌐 Interoperability — JSON API Response');
+            console.group(' Interoperability — JSON API Response');
             console.log('Raw JSON received from external API:',
-                JSON.stringify({ question: puzzle.question, solution: '🔒 hidden' }, null, 2));
+                JSON.stringify({ question: puzzle.question, solution: '🔒’ hidden' }, null, 2));
             console.log('Deserialized JS object ready to use:', {
                 api:   this.model.getActivePlayer().api,
                 round: this.model.currentRound
@@ -420,15 +410,28 @@ class GameController {
 
         } catch (err) {
             console.error('GameController: Failed to load puzzle >', err.message);
-            document.getElementById('puzzleLoading').innerHTML =
-                '<p style="color:#ff6b6b">⚠️ Failed to load puzzle from API. Please check your connection.</p>';
+            // Show friendly error important when depending on an external service
+            // In production, a fallback API or cached puzzles would be used
+            document.getElementById('puzzleLoading').innerHTML = `
+                <div style="text-align:center; color:#ff6b6b;">
+                    <p style="font-size:2em;"></p>
+                    <p><strong>Could not reach the API</strong></p>
+                    <p style="font-size:0.85em; opacity:0.7; margin-top:8px;">
+                        The external puzzle service (${this.model.getActivePlayer().api} API) 
+                        is unavailable. Please check your connection.
+                    </p>
+                    <button onclick="window.controller.loadNextPuzzle()" 
+                        style="margin-top:15px; padding:10px 20px; border-radius:10px; 
+                               background:#FFD93D; border:none; font-weight:700; cursor:pointer;">
+                        ðŸ”„ Retry
+                    </button>
+                </div>
+            `;
         }
     }
 
-    // ─── Timer ────────────────────────────────────────────────────────────────
-
     /**
-     * Timer is driven by setInterval — a time-based event.
+     * Timer is driven by setInterval a time-based event.
      * When timeLeft reaches 0, handleAnswerSubmit(true) is called automatically.
      * This demonstrates event-driven programming beyond user interaction:
      * the system itself generates an event (timeout) that drives the game forward.
@@ -439,7 +442,6 @@ class GameController {
             this.model.timeLeft--;
             document.getElementById('timerValue').textContent = this.model.timeLeft;
 
-            // BUG FIX: class name matches CSS (.timer-warning, not .warning)
             if (this.model.timeLeft <= 3) {
                 document.getElementById('timerDisplay').classList.add('timer-warning');
             }
@@ -456,20 +458,17 @@ class GameController {
             clearInterval(this.timerInterval);
             this.timerInterval = null;
         }
-        // BUG FIX: remove correct class name
         document.getElementById('timerDisplay').classList.remove('timer-warning');
     }
 
-    // ─── Answer Handling ──────────────────────────────────────────────────────
-
     /**
-     * Handle answer submission — either from button click, Enter key, or timeout.
+     * Handle answer submission - either from button click, Enter key, or timeout.
      *
      * _answerLocked prevents double-submission: once an answer is processed,
      * no further input is accepted until the next puzzle loads.
      *
      * After processing, emits 'answer:submitted' and optionally 'game:over'
-     * via the EventBus (Observer pattern — decoupled notification).
+     * via the EventBus (Observer pattern â€” decoupled notification).
      *
      * @param {boolean} isTimeout - true if called by the timer expiring
      */
@@ -495,7 +494,7 @@ class GameController {
         const answer    = isTimeout ? -1 : Number(rawValue);
         const isCorrect = this.model.checkAnswer(answer);
 
-        // Emit event via EventBus — Observer pattern (Week 4)
+        // Emit event via EventBus Observer pattern
         window.eventBus.emit('answer:submitted', {
             correct: isCorrect,
             timeout: isTimeout,
@@ -510,11 +509,9 @@ class GameController {
 
         if (isTimeout) {
             feedbackEl.textContent = `⏰ Time's up! The answer was ${this.model.puzzle.solution}`;
-            // BUG FIX: CSS class is 'error', not 'wrong'
             feedbackEl.className   = 'feedback-message error';
         } else if (isCorrect) {
             feedbackEl.textContent = '🎉 Correct! Well done!';
-            // BUG FIX: CSS class is 'success', not 'correct'
             feedbackEl.className   = 'feedback-message success';
         } else {
             feedbackEl.textContent = `❌ Wrong! The answer was ${this.model.puzzle.solution}`;
@@ -531,7 +528,6 @@ class GameController {
                 this.stopTimer();
                 this.model.saveResults();
 
-                // BUG FIX: emit game:over event (was missing entirely)
                 window.eventBus.emit('game:over', {
                     player: this.model.getWinner()
                         ? this.model.getWinner().name
@@ -556,15 +552,13 @@ class GameController {
         }, 2000);
     }
 
-    // ─── Results Screen ───────────────────────────────────────────────────────
-
     _showResults() {
         if (this.model.mode === 'single') {
             const player = this.model.player1;
             document.getElementById('winnerName').textContent  = player.name;
             document.getElementById('finalScore').textContent  = player.score + ' / ' + this.model.totalRounds;
             document.getElementById('accuracy').textContent    = Math.round((player.score / this.model.totalRounds) * 100) + '%';
-            document.getElementById('apiUsed').textContent     = player.api === 'banana' ? '🍌 Banana API' : '😊 Emoji API';
+            document.getElementById('apiUsed').textContent     = player.api === 'banana' ? '🍌 Banana API' : '😊 Smiley API';
             document.getElementById('resultUserId').textContent    = player.id;
             document.getElementById('resultSessionId').textContent = this.model.user ? this.model.user.sessionId : '—';
         } else {
@@ -593,7 +587,7 @@ class GameController {
     showAchievements(score, total) {
         const achievements = [];
         const accuracy = (score / total) * 100;
-        if (score === total)  achievements.push({ icon: '🌟', text: 'Perfect Score!' });
+        if (score === total)  achievements.push({ icon: '🎉', text: 'Perfect Score!' });
         if (accuracy >= 80)  achievements.push({ icon: '🎯', text: 'Sharp Shooter' });
         if (score >= 3)      achievements.push({ icon: '🧠', text: 'Brain Power' });
 

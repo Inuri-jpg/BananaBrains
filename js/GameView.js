@@ -2,11 +2,11 @@
  * GameView.js
  * The View layer in the MVC architecture.
  *
- * Responsible solely for DOM manipulation — reading from and writing to the UI.
+ * Responsible solely for DOM manipulation â€” reading from and writing to the UI.
  * Contains no game logic. The Controller calls View methods; the View never
  * calls back into the Controller directly.
  *
- * This separation (MVC) supports the version control discussion (Week 2):
+ * This separation (MVC) supports the version control discussion:
  * each layer can be developed and committed independently, with clear
  * component boundaries that aid collaboration and code reviews.
  */
@@ -50,7 +50,6 @@ class GameView {
     /**
      * Animate the display of the auto-generated UserId and SessionId.
      * This makes the virtual identity creation visible to the user,
-     * which is a key talking point for the Week 5 (Virtual Identity) theme.
      */
     showGeneratedIds(userId, sessionId) {
         const uEl = document.getElementById('display-userId');
