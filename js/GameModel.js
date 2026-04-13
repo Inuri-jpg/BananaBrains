@@ -8,7 +8,7 @@
  *  - Manages user authentication and identity 
  *  - Contains pure game logic (no DOM access)
  *
- * Interoperability (Week 3):
+ * Interoperability:
  *   fetchPuzzle() makes an HTTP GET request to an external REST API
  *   (marcconrad.com) running on a different server and written in a different
  *   language (PHP). The response is JSON, which is deserialized with
@@ -74,7 +74,7 @@ class GameModel {
      * Authenticate a returning user.
      * Compares the entered password against the stored hash.
      * A new sessionId is issued on every successful login, invalidating
-     * any previous session â€” this is stateless session management.
+     * any previous session this is stateless session management.
      * @returns {'ok' | 'not_found' | 'wrong_password'}
      */
     authenticate(username, password) {
@@ -175,7 +175,7 @@ class GameModel {
      * Why REST over SOAP?
      *  REST is stateless, lightweight, and returns JSON which is natively
      *  parsed by JavaScript. SOAP would require XML parsing and is far more
-     *  verbose â€” unnecessary overhead for a simple puzzle request.
+     *  verbose unnecessary overhead for a simple puzzle request.
      */
     async fetchPuzzle() {
         const activePlayer = this.getActivePlayer();

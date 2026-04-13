@@ -332,7 +332,7 @@
 /* Additional floating stars - more atmosphere */
 .home-panel::before,
 .home-panel::after {
-    content: 'âœ¨';
+    content: '✨';
     position: absolute;
     font-size: 1.5em;
     opacity: 0.4;

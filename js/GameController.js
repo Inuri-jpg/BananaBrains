@@ -250,7 +250,7 @@ class GameController {
         // Setup game model with both players' confirmed identities
         this.model.setupMulti(p1Name, p1Api, p2Name, p2Api, p1Result.userId, p2Result.userId);
 
-        // Short delay so players can see their âœ“ messages
+        // Short delay so players can see their messages
         setTimeout(() => {
             this.view.show('gameplay');
             this.startGameplay();
@@ -423,7 +423,7 @@ class GameController {
                     <button onclick="window.controller.loadNextPuzzle()" 
                         style="margin-top:15px; padding:10px 20px; border-radius:10px; 
                                background:#FFD93D; border:none; font-weight:700; cursor:pointer;">
-                        ðŸ”„ Retry
+                        Retry
                     </button>
                 </div>
             `;
@@ -468,7 +468,7 @@ class GameController {
      * no further input is accepted until the next puzzle loads.
      *
      * After processing, emits 'answer:submitted' and optionally 'game:over'
-     * via the EventBus (Observer pattern â€” decoupled notification).
+     * via the EventBus (Observer pattern decoupled notification).
      *
      * @param {boolean} isTimeout - true if called by the timer expiring
      */

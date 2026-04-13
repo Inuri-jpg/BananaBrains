@@ -44,7 +44,7 @@ class StorageManager {
 
     /**
      * Verify a plaintext password against its stored hash.
-     * Re-hashes the plaintext and compares â€” passwords are never stored in plain text.
+     * Re-hashes the plaintext and compares passwords are never stored in plain text.
      * @param {string} plaintext
      * @param {string} storedHash
      * @returns {boolean}

@@ -5,7 +5,7 @@
  * This is the central event system for the entire application.
  * Components register listeners with .on() and fire events with .emit().
  * This decouples producers (e.g. GameController) from consumers so neither side needs a direct reference to 
- * the other - a key benefit of Event-Driven design.
+ * the other, a key benefit of Event-Driven design.
  *
  * Design pattern: Observer Pattern 
  * Interoperability note: EventBus acts as internal middleware between components,
@@ -44,8 +44,8 @@ class EventBus {
 
     /**
      * Unsubscribe a specific listener from an event.
-     * Important for memory management â€” unused listeners are removed
-     * to prevent memory leaks (best practice from Week 4).
+     * Important for memory management, unused listeners are removed
+     * to prevent memory leaks.
      * @param {string}   event - The event name
      * @param {Function} fn    - The exact function reference to remove
      */
