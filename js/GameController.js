@@ -199,6 +199,11 @@ class GameController {
      *   will call their chosen API and Player 2's turns will call theirs — meaning
      *   two different external servers may be called within the same game session.
      */
+
+
+        ///AI DISCLOSURE: Code generated using Claude AI by Anthropic (https://claude.ai)
+        ///Prompted, understood and reviewed by: [Inuri Dissanayaka], [2026] 
+
     onStartMultiClick() {
         const p1Name = document.getElementById('player1Name').value.trim();
         const p2Name = document.getElementById('player2Name').value.trim();
@@ -255,6 +260,8 @@ class GameController {
             this.view.show('gameplay');
             this.startGameplay();
         }, 900);
+
+        /// End of AI Disclosure
     }
 
     /**
@@ -312,7 +319,7 @@ class GameController {
          * The badge updates on every turn switch so it always shows which
          * external service is being called for THIS player's puzzle.
          * Player 1 - may call Banana API (marcconrad.com/uob/banana)
-         * Player 2 - may call Emoji API  (marcconrad.com/uob/emoji)
+         * Player 2 - may call Smile API  (marcconrad.com/uob/smile)
          * Both are independent REST services on the same host but different endpoints.
          */
         const apiBadge = document.querySelector('.api-badge');
@@ -321,7 +328,7 @@ class GameController {
                 apiBadge.textContent = '🍌 Banana API';
                 apiBadge.className   = 'api-badge banana-api';
             } else {
-                apiBadge.textContent = '😊 Smiley API';
+                apiBadge.textContent = '😊 Smile API';
                 apiBadge.className   = 'api-badge emoji-api';
             }
         }

@@ -31,7 +31,7 @@ window.settingsScreen = {
             });
         }
 
-        // Difficulty buttons â€” click events
+        // Difficulty buttons click events
         document.querySelectorAll('.difficulty-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 this.currentSettings.difficulty = btn.dataset.difficulty;
@@ -154,7 +154,9 @@ window.settingsScreen = {
         if (volumeValue)  volumeValue.textContent = this.currentSettings.volume + '%';
     },
 
-    /** Play a brief test tone using the Web Audio API to confirm sound is working. */
+    ///AI DISCLOSURE START : Code generated using Claude AI by Anthropic (https://claude.ai)
+    ///Prompted, understood and reviewed by: [Inuri Dissanayaka], [2026] 
+
     playTestSound() {
         if (!this.currentSettings.sound) return;
         try {
@@ -172,4 +174,6 @@ window.settingsScreen = {
             console.log('SettingsScreen: Web Audio API not available');
         }
     }
+
+    /// End of AI Disclosure
 };

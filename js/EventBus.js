@@ -1,3 +1,6 @@
+///AI DISCLOSURE: Code generated using Claude AI by Anthropic (https://claude.ai)
+///Prompted, understood and reviewed by: [Inuri Dissanayaka], [2026] 
+
 /**
  * EventBus.js
  * Implements the Observer / Publish-Subscribe pattern.

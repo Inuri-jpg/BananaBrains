@@ -1,3 +1,6 @@
+///AI DISCLOSURE: Code generated using Claude AI by Anthropic (https://claude.ai)
+///Prompted, understood and reviewed by: [Inuri Dissanayaka], [2026] 
+
 /**
  * multiplayer.js
  * Handles the Two Player setup screen UI behaviour.

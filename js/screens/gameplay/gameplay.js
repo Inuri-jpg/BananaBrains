@@ -64,6 +64,9 @@ window.gameplayScreen = {
         scoreEl.textContent = score;
     },
 
+    ///AI DISCLOSURE: Code generated using Claude AI by Anthropic (https://claude.ai)
+    ///Prompted, understood and reviewed by: [Inuri Dissanayaka], [2026] 
+
     /**
      * Play a short celebratory sound when the game ends.
      * Called exclusively by the game:over observer, not by GameController directly.
@@ -90,4 +93,6 @@ window.gameplayScreen = {
             console.log('Observer [game:over]: Web Audio API not available');
         }
     }
+
+    /// End of AI Disclosure
 };

@@ -12,6 +12,9 @@ window.leaderboardScreen = {
         this.view.show('leaderboard');
     },
 
+    ///AI DISCLOSURE: Code generated using Claude AI by Anthropic (https://claude.ai)
+    ///Prompted, understood and reviewed by: [Inuri Dissanayaka], [2026] 
+
     _render() {
         const leaderboard = this.storage.loadLeaderboard();
         const listEl      = document.getElementById('leaderboardScreenList');
@@ -50,6 +53,8 @@ window.leaderboardScreen = {
             listEl.appendChild(div);
         });
     },
+
+    /// end of AI Disclosure
 
     // Returns to the screen which opened the leaderboard
     goBack() {

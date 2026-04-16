@@ -1,3 +1,6 @@
+///AI DISCLOSURE: Code generated using Claude AI by Anthropic (https://claude.ai)
+///Prompted, understood and reviewed by: [Inuri Dissanayaka], [2026] 
+
 window.loadingScreen = {
 
     /*  Updating the progress bar */
@@ -10,6 +13,8 @@ window.loadingScreen = {
             { pct: 90, label: 'Setting up game engine....'},
             { pct: 100, label: 'Ready to play............'}
         ];
+
+            /// end of AI Disclosure
 
         for (const step of steps) {
             view.setProgress(step.pct, step.label);

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -314,7 +315,6 @@
         <!-- Feedback -->
         <div class="feedback-message" id="feedbackMessage"></div>
 
-        <!-- BUG FIX: Quit button now has an event listener in GameController -->
         <button class="quit-btn" id="quitGameBtn">🚪 Quit Game</button>
     </div>
 </div>
@@ -476,6 +476,11 @@
 <script src="js/screens/settings/settings.js"></script>
 
 <script>
+
+///AI DISCLOSURE start: Code generated using Claude AI by Anthropic (https://claude.ai) 
+// Prompted, understood and reviewed by: [Inuri Dissanayaka], [2026] 
+
+
 /**
  * Application bootstrap — runs after the DOM is fully loaded.
  * DOMContentLoaded is itself an event, demonstrating event-driven initialisation.
@@ -518,6 +523,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     view.show('home');
     console.log('🍌 Banana Brains: Ready!');
 });
+
+/// End of AI Disclosure
 </script>
 </body>
 </html>

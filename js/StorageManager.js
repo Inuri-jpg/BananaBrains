@@ -26,6 +26,9 @@ class StorageManager {
         };
     }
 
+    ///AI DISCLOSURE: Code generated using Claude AI by Anthropic (https://claude.ai)
+    ///Prompted, understood and reviewed by: [Inuri Dissanayaka], [2026] 
+
     /**
      * djb2 hash algorithm converts a plaintext password to a hex string.
      * Trade-off: fast and dependency-free, but not cryptographically secure.
@@ -52,6 +55,9 @@ class StorageManager {
     verifyPassword(plaintext, storedHash) {
         return this.hashPassword(plaintext) === storedHash;
     }
+
+    ///End of AI Disclosure
+
 
     /**
      * Serialise user object to JSON and save in localStorage.
